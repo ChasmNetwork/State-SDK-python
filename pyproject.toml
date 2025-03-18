@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-    {name = "State of Mika Team", email = "contact@stateofmika.com"}
+    {name = "Haru @ State of Mika", email = "hello@gmika.io"}
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -50,8 +50,8 @@ fastapi = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/stateofmika/state-of-mika"
-"Bug Tracker" = "https://github.com/stateofmika/state-of-mika/issues"
+"Homepage" = "https://github.com/ChasmNetwork/State-SDK-python"
+"Bug Tracker" = "https://github.com/ChasmNetwork/State-SDK-python/issues"
 "Documentation" = "https://stateofmika.readthedocs.io/"
 
 [project.scripts]
