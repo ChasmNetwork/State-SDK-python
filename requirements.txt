@@ -1,0 +1,17 @@
+# Core dependencies
+aiohttp>=3.8.0
+anthropic>=0.15.0
+mcp>=0.1.0
+fastmcp>=0.1.0
+
+# Weather server
+git+https://github.com/adhikasp/mcp-weather.git
+
+# Optional but recommended tools
+# uv>=0.1.0  # Faster package installer, uncomment if you want to install it
+
+# Development dependencies
+pytest>=7.0.0
+pytest-asyncio>=0.18.0
+black>=23.0.0
+flake8>=6.0.0 

@@ -1,0 +1,6 @@
+include README.md
+include LICENSE
+include state_of_mika/registry/*.json
+include state_of_mika/README.md
+recursive-include state_of_mika/examples *.py
+recursive-include state_of_mika/adapters *.py 
