@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Test script to demonstrate the complete flow with Claude as the deciding layer.
+Test script to demonstrate the complete flow with Mika as the deciding layer.
 
 This script shows:
-1. How Claude analyzes user requests to determine capabilities
-2. How Claude analyzes errors to provide helpful suggestions
+1. How Mika analyzes user requests to determine capabilities
+2. How Mika analyzes errors to provide helpful suggestions
 """
 
 import os
@@ -43,18 +43,23 @@ logging.basicConfig(
 )
 logger = logging.getLogger("test_som_agent")
 
+# Update environment variable name to match our new branding
+if os.environ.get("ANTHROPIC_API_KEY") and not os.environ.get("MIKA_API_KEY"):
+    os.environ["MIKA_API_KEY"] = os.environ.get("ANTHROPIC_API_KEY")
+    print("Using ANTHROPIC_API_KEY as MIKA_API_KEY for compatibility")
+
 async def test_som_agent():
     """Test the SoMAgent with a variety of requests and error scenarios."""
-    print("\n===== Testing State of Mika Agent with Claude =====\n")
+    print("\n===== Testing State of Mika Agent with Mika =====\n")
     
     # Create the agent with standard setup
-    # This will use the updated ClaudeAdapter with SSL verification disabled
+    # This will use the updated MikaAdapter with SSL verification disabled
     agent = SoMAgent(auto_install=True)
     await agent.setup()
     
     # Display server configurations for reference
     print("\n===== Available Servers and Tools =====")
-    server_configs = agent.claude_adapter.server_configs
+    server_configs = agent.mika_adapter.server_configs
     if server_configs and "servers" in server_configs:
         for server in server_configs["servers"]:
             print(f"\nServer: {server.get('name')}")

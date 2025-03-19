@@ -1,7 +1,7 @@
 """
 State of Mika Agent - Main interface for the IDE.
 
-This module integrates the ClaudeAdapter with the Connector, Registry, and Installer
+This module integrates the MikaAdapter with the Connector, Registry, and Installer
 to provide a unified interface for the IDE.
 """
 
@@ -13,7 +13,7 @@ from typing import Dict, List, Any, Optional, Union
 from .registry import Registry
 from .installer import Installer
 from .connector import Connector
-from .claude_adapter import ClaudeAdapter
+from .mika_adapter import MikaAdapter  # Updated import
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +22,7 @@ class SoMAgent:
     State of Mika Agent - Main interface for the IDE.
     
     This class integrates all components to provide a unified interface:
-    - Uses Claude to analyze requests and determine capabilities
+    - Uses Mika to analyze requests and determine capabilities
     - Finds, installs, and connects to the appropriate servers
     - Executes tools and returns structured responses
     - Analyzes errors and provides helpful suggestions
@@ -36,8 +36,8 @@ class SoMAgent:
         Initialize the State of Mika Agent.
         
         Args:
-            api_key: Anthropic API key (defaults to ANTHROPIC_API_KEY env var)
-            model: Claude model to use
+            api_key: Mika API key (defaults to MIKA_API_KEY env var)
+            model: Mika model to use
             auto_install: Whether to automatically install servers when needed
         """
         # Set up the environment
@@ -48,21 +48,21 @@ class SoMAgent:
         self.registry = Registry()
         self.installer = Installer(self.registry)
         self.connector = Connector(self.registry, self.installer)
-        self.claude_adapter = ClaudeAdapter(api_key=api_key, model=model)
+        self.mika_adapter = MikaAdapter(api_key=api_key, model=model)
         
     async def setup(self):
         """Set up the agent by ensuring the registry is loaded."""
         await self.registry.update()
         await self.connector.setup()
-        # Ensure Claude adapter has server configurations loaded
-        await self.claude_adapter.load_server_configs()
+        # Ensure Mika adapter has server configurations loaded
+        await self.mika_adapter.load_server_configs()
         
     async def process_request(self, user_request: str) -> Dict[str, Any]:
         """
         Process a natural language request from the user.
         
         This is the main entry point for the IDE. It:
-        1. Uses Claude to analyze the request
+        1. Uses Mika to analyze the request
         2. Finds and connects to the appropriate server
         3. Executes the tool and returns the result
         4. Analyzes any errors that occur
@@ -76,8 +76,8 @@ class SoMAgent:
         logger.info(f"Processing user request: {user_request}")
         
         try:
-            # Step 1: Analyze the request with Claude
-            analysis = await self.claude_adapter.analyze_request(user_request)
+            # Step 1: Analyze the request with Mika
+            analysis = await self.mika_adapter.analyze_request(user_request)
             
             # Check for errors in the analysis
             if "error" in analysis:
@@ -107,8 +107,8 @@ class SoMAgent:
             if isinstance(result, dict) and result.get("status") == "error":
                 logger.warning(f"Error executing capability: {result.get('error')}")
                 
-                # Step 4: Analyze the error with Claude
-                error_analysis = await self.claude_adapter.analyze_error(
+                # Step 4: Analyze the error with Mika
+                error_analysis = await self.mika_adapter.analyze_error(
                     error=result,
                     original_request=user_request,
                     context={
@@ -118,7 +118,7 @@ class SoMAgent:
                     }
                 )
                 
-                # Combine the original error with Claude's analysis
+                # Combine the original error with Mika's analysis
                 enhanced_error = {
                     "status": "error",
                     "error": result.get("error"),
@@ -144,9 +144,9 @@ class SoMAgent:
         except Exception as e:
             logger.error(f"Unexpected error: {str(e)}", exc_info=True)
             
-            # Try to analyze the error with Claude
+            # Try to analyze the error with Mika
             try:
-                error_analysis = await self.claude_adapter.analyze_error(
+                error_analysis = await self.mika_adapter.analyze_error(
                     error=str(e),
                     original_request=user_request
                 )
@@ -161,7 +161,7 @@ class SoMAgent:
                     "original_request": user_request
                 }
             except:
-                # If even Claude analysis fails, return a simple error
+                # If even Mika analysis fails, return a simple error
                 return {
                     "status": "error",
                     "error": str(e),
