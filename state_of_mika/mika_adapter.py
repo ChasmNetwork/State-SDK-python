@@ -34,14 +34,14 @@ class MikaAdapter:
         Initialize the Mika Adapter.
         
         Args:
-            api_key: Mika API key (defaults to MIKA_API_KEY env var)
-            model: Mika model to use
+            api_key: Anthropic API key (defaults to ANTHROPIC_API_KEY env var)
+            model: Claude model to use
             max_tokens: Maximum tokens for response
             registry_path: Path to the servers registry JSON file
         """
-        self.api_key = api_key or os.environ.get("MIKA_API_KEY")
+        self.api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
         if not self.api_key:
-            logger.warning("No Mika API key provided. Set MIKA_API_KEY environment variable.")
+            logger.warning("No Anthropic API key provided. Set ANTHROPIC_API_KEY environment variable.")
             
         self.model = model
         self.max_tokens = max_tokens
@@ -149,8 +149,8 @@ class MikaAdapter:
             
         if not self.api_key:
             return {
-                "error": "Missing Mika API key",
-                "suggestion": "Set the MIKA_API_KEY environment variable"
+                "error": "Missing Anthropic API key",
+                "suggestion": "Set the ANTHROPIC_API_KEY environment variable"
             }
             
         # Create the system prompt for request analysis
@@ -195,9 +195,9 @@ class MikaAdapter:
                 # Check for errors
                 if response.status != 200:
                     error_text = await response.text()
-                    logger.error(f"Error from Mika API: {error_text}")
+                    logger.error(f"Error from Anthropic API: {error_text}")
                     return {
-                        "error": f"Mika API error: {response.status}",
+                        "error": f"Anthropic API error: {response.status}",
                         "suggestion": "Check API key and try again"
                     }
                 
@@ -218,9 +218,9 @@ class MikaAdapter:
                     
                     # Validate the required fields
                     if not result.get("capability"):
-                        raise ValueError("Missing 'capability' in Mika response")
+                        raise ValueError("Missing 'capability' in Claude response")
                     if not result.get("tool_name"):
-                        raise ValueError("Missing 'tool_name' in Mika response")
+                        raise ValueError("Missing 'tool_name' in Claude response")
                     if not isinstance(result.get("parameters"), dict):
                         raise ValueError("'parameters' must be a dictionary")
                         
@@ -236,10 +236,10 @@ class MikaAdapter:
                         
                     return result
                 except (json.JSONDecodeError, ValueError) as e:
-                    logger.error(f"Error parsing Mika response: {e}")
-                    logger.debug(f"Mika response: {response_text}")
+                    logger.error(f"Error parsing Claude response: {e}")
+                    logger.debug(f"Claude response: {response_text}")
                     return {
-                        "error": f"Failed to parse response from Mika: {str(e)}",
+                        "error": f"Failed to parse response from Claude: {str(e)}",
                         "suggestion": "The AI returned an invalid format. Try rephrasing your request."
                     }
     
@@ -260,8 +260,8 @@ class MikaAdapter:
         """
         if not self.api_key:
             return {
-                "error": "Missing Mika API key",
-                "suggestion": "Set the MIKA_API_KEY environment variable"
+                "error": "Missing Anthropic API key",
+                "suggestion": "Set the ANTHROPIC_API_KEY environment variable"
             }
             
         # Create the system prompt for error analysis
@@ -325,9 +325,9 @@ class MikaAdapter:
                 # Check for errors
                 if response.status != 200:
                     error_text = await response.text()
-                    logger.error(f"Error from Mika API: {error_text}")
+                    logger.error(f"Error from Anthropic API: {error_text}")
                     return {
-                        "error": f"Mika API error: {response.status}",
+                        "error": f"Anthropic API error: {response.status}",
                         "suggestion": "Check API key and try again"
                     }
                 
@@ -351,10 +351,10 @@ class MikaAdapter:
                     
                     return result
                 except (json.JSONDecodeError, ValueError) as e:
-                    logger.error(f"Error parsing Mika response: {e}")
+                    logger.error(f"Error parsing Claude response: {e}")
                     
                     # If we couldn't parse the JSON, try to at least extract the suggestion
-                    suggestion = "Unable to parse Mika's analysis of this error."
+                    suggestion = "Unable to parse Claude's analysis of this error."
                     if "suggestion" in response_text.lower():
                         suggestion_parts = response_text.lower().split("suggestion")
                         if len(suggestion_parts) > 1:
@@ -362,7 +362,7 @@ class MikaAdapter:
                     
                     return {
                         "error_type": "Parser Error",
-                        "explanation": "Failed to parse Mika's analysis",
+                        "explanation": "Failed to parse Claude's analysis",
                         "suggestion": suggestion,
                         "requires_user_action": True,
                         "original_error": error

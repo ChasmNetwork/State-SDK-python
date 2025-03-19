@@ -46,9 +46,9 @@ pip install -e .
 
 ```bash
 export ANTHROPIC_API_KEY="your_anthropic_api_key_here"
-# Or alternatively:
-export MIKA_API_KEY="your_anthropic_api_key_here"
 ```
+
+You can obtain an API key by signing up at [Anthropic's website](https://www.anthropic.com/product).
 
 Some MCP servers may require additional API keys depending on the services they integrate with. For example, the weather capability requires:
 
@@ -76,7 +76,7 @@ import asyncio
 from state_of_mika import SoMAgent
 
 async def process_request():
-    # Initialize the agent with your API key (or set env var ANTHROPIC_API_KEY/MIKA_API_KEY)
+    # Initialize the agent with your API key (or set env var ANTHROPIC_API_KEY)
     agent = SoMAgent(api_key="your_api_key_here", auto_install=True)
     await agent.setup()
     
@@ -217,7 +217,7 @@ This launches an interactive shell where you can test capabilities directly.
 
 ## Environment Variables
 
-- `ANTHROPIC_API_KEY` or `MIKA_API_KEY`: Required for Claude analysis
+- `ANTHROPIC_API_KEY`: Required for Claude analysis
 - `AUTO_INSTALL_SERVERS`: Set to "true" to automatically install needed servers
 - `USE_MOCK_DATA`: Set to "true" to use mock data instead of real server calls (for testing)
 - `SOM_LOCAL_DEV`: Set to "true" to prioritize locally installed servers over registry versions

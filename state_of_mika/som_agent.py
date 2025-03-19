@@ -36,8 +36,8 @@ class SoMAgent:
         Initialize the State of Mika Agent.
         
         Args:
-            api_key: Mika API key (defaults to MIKA_API_KEY env var)
-            model: Mika model to use
+            api_key: Anthropic API key (defaults to ANTHROPIC_API_KEY env var)
+            model: Claude model to use
             auto_install: Whether to automatically install servers when needed
         """
         # Set up the environment
