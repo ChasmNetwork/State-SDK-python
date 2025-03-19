@@ -15,6 +15,9 @@ import json
 import aiohttp
 from dotenv import load_dotenv
 
+# Force auto-installation of servers
+os.environ["AUTO_INSTALL_SERVERS"] = "true"
+
 # Before importing our modules, set up the SSL context
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False

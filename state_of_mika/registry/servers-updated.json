@@ -1,0 +1,292 @@
+{
+  "servers": [
+    {
+      "name": "mcp_cloudflare",
+      "description": "Integration with Cloudflare services including Workers, KV, R2, and D1",
+      "capabilities": ["cloud", "api", "storage", "database", "workers"],
+      "version": "0.1.0",
+      "is_official": true,
+      "language": "typescript",
+      "scope": "cloud",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/cloudflare/mcp-server-cloudflare.git",
+        "package": "mcp-cloudflare",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_base",
+      "description": "Base Network integration for onchain tools, allowing interaction with Base Network and Coinbase API for wallet management, fund transfers, smart contracts, and DeFi operations",
+      "capabilities": ["blockchain", "crypto", "wallet", "finance", "defi"],
+      "version": "0.1.0",
+      "is_official": true,
+      "language": "typescript",
+      "scope": "cloud",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/base/base-mcp.git",
+        "package": "mcp-base",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_jetbrains",
+      "description": "Connect to JetBrains IDE",
+      "capabilities": ["ide", "development", "code", "editor", "jetbrains"],
+      "version": "0.1.0",
+      "is_official": true,
+      "language": "typescript",
+      "scope": "local",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/JetBrains/mcpProxy.git",
+        "package": "mcp-jetbrains",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_iaptic",
+      "description": "Connect with iaptic to ask about your Customer Purchases, Transaction data and App Revenue statistics",
+      "capabilities": ["analytics", "revenue", "customer", "transactions", "statistics"],
+      "version": "0.1.0",
+      "is_official": true,
+      "language": "typescript",
+      "scope": "cloud",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/iaptic/mcp-server-iaptic.git",
+        "package": "mcp-iaptic",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_metoro",
+      "description": "Query and interact with kubernetes environments monitored by Metoro",
+      "capabilities": ["kubernetes", "monitoring", "cloud", "management", "containers"],
+      "version": "0.1.0",
+      "is_official": true,
+      "language": "go",
+      "scope": "cloud",
+      "install": {
+        "type": "go",
+        "repository": "https://github.com/metoro-io/metoro-mcp-server.git",
+        "package": "github.com/metoro-io/metoro-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_grafana",
+      "description": "Search dashboards, investigate incidents and query datasources in your Grafana instance",
+      "capabilities": ["monitoring", "dashboards", "metrics", "visualization", "analytics"],
+      "version": "0.1.0",
+      "is_official": true,
+      "language": "python",
+      "scope": "local",
+      "install": {
+        "type": "pip",
+        "repository": "git+https://github.com/grafana/mcp-grafana.git",
+        "package": "git+https://github.com/grafana/mcp-grafana.git",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_exa",
+      "description": "A Model Context Protocol server that lets AI assistants use the Exa AI Search API for web searches",
+      "capabilities": ["search", "web", "api", "information", "retrieval"],
+      "version": "0.1.0",
+      "is_official": true,
+      "language": "typescript",
+      "scope": "cloud",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/exa-labs/exa-mcp-server.git",
+        "package": "mcp-exa",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_trieve",
+      "description": "Crawl, embed, chunk, search, and retrieve information from datasets through Trieve",
+      "capabilities": ["search", "embeddings", "retrieval", "crawl", "datasets"],
+      "version": "0.1.0",
+      "is_official": true,
+      "language": "typescript",
+      "scope": "cloud",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/devflowinc/trieve.git",
+        "package": "mcp-trieve",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_make",
+      "description": "Turn your Make scenarios into callable tools for AI assistants",
+      "capabilities": ["automation", "integration", "workflow", "scenarios", "tools"],
+      "version": "0.1.0",
+      "is_official": true,
+      "language": "typescript",
+      "scope": "local",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/integromat/make-mcp-server.git",
+        "package": "mcp-make",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_weather",
+      "description": "MCP server for getting weather information",
+      "capabilities": ["weather", "forecast", "temperature"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "git+https://github.com/adhikasp/mcp-weather.git",
+        "package": "git+https://github.com/adhikasp/mcp-weather.git",
+        "global": true
+      },
+      "launch": {
+        "command": "python",
+        "args": [
+          "-c",
+          "from fastmcp import FastMCP; from mcp_weather.weather import get_hourly_weather; server = FastMCP('mcp-weather'); server.add_tool(get_hourly_weather); server.run()"
+        ],
+        "env": {
+          "ACCUWEATHER_API_KEY": "${ACCUWEATHER_API_KEY}"
+        }
+      },
+      "schema": {
+        "get_hourly_weather": {
+          "description": "Get hourly weather forecast for a location",
+          "parameters": {
+            "location": {
+              "type": "string",
+              "description": "The location to get weather for"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "mcp_datetime",
+      "description": "MCP server for datetime operations and conversions",
+      "capabilities": ["datetime", "time", "date", "conversion"],
+      "version": "0.1.0",
+      "installation": {
+        "type": "npm",
+        "repository": "https://github.com/ZeparHyfar/mcp-datetime.git",
+        "package": "mcp-datetime",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_search",
+      "description": "MCP server for web searches",
+      "capabilities": ["search", "web", "information"],
+      "version": "0.1.0",
+      "installation": {
+        "type": "npm",
+        "repository": "https://github.com/ZeparHyfar/mcp-search.git",
+        "package": "mcp-search",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_file",
+      "description": "MCP server for file operations",
+      "capabilities": ["file", "read", "write", "list", "directory"],
+      "version": "0.1.0",
+      "installation": {
+        "type": "pip",
+        "package": "mcp-file",
+        "repository": "https://github.com/ZeparHyfar/mcp-file.git"
+      }
+    },
+    {
+      "name": "mcp_playwright",
+      "description": "An MCP python server using Playwright for browser automation, more suitable for LLMs",
+      "capabilities": ["browser", "automation", "web", "scraping", "playwright"],
+      "version": "0.1.0",
+      "language": "python",
+      "scope": "local",
+      "install": {
+        "type": "pip",
+        "repository": "git+https://github.com/blackwhite084/playwright-plus-python-mcp.git",
+        "package": "git+https://github.com/blackwhite084/playwright-plus-python-mcp.git",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_puppeteer",
+      "description": "Browser automation for web scraping and interaction",
+      "capabilities": ["browser", "automation", "web", "scraping", "puppeteer"],
+      "version": "0.1.0",
+      "language": "typescript",
+      "scope": "local",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "mcp-puppeteer",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_youtube_transcript",
+      "description": "Fetch YouTube subtitles and transcripts for AI analysis",
+      "capabilities": ["youtube", "transcripts", "subtitles", "video", "content"],
+      "version": "0.1.0",
+      "language": "typescript",
+      "scope": "cloud",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/kimtaeyoon83/mcp-server-youtube-transcript.git",
+        "package": "mcp-youtube-transcript",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_apple_shortcuts",
+      "description": "An MCP Server Integration with Apple Shortcuts",
+      "capabilities": ["apple", "shortcuts", "automation", "ios", "macos"],
+      "version": "0.1.0",
+      "language": "typescript",
+      "scope": "local",
+      "os": "macos",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/recursechat/mcp-server-apple-shortcuts.git",
+        "package": "mcp-apple-shortcuts",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_web_search",
+      "description": "An MCP server that enables free web searching using Google search results, with no API keys required",
+      "capabilities": ["search", "google", "web", "free", "results"],
+      "version": "0.1.0",
+      "language": "typescript",
+      "scope": "local",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/pskill9/web-search.git",
+        "package": "mcp-web-search",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_rijksmuseum",
+      "description": "Rijksmuseum API integration for artwork search, details, and collections",
+      "capabilities": ["art", "museum", "culture", "search", "collections"],
+      "version": "0.1.0",
+      "language": "typescript",
+      "scope": "cloud",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/r-huijts/rijksmuseum-mcp.git",
+        "package": "mcp-rijksmuseum",
+        "global": true
+      }
+    }
+  ]
+} 

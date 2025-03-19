@@ -1,8 +1,1101 @@
 {
+  "version": "1.0.0",
+  "last_updated": "2025-03-19",
+  "categories": [
+    "official",
+    "database",
+    "browser_automation",
+    "search",
+    "developer_tools",
+    "file_system",
+    "communication",
+    "knowledge",
+    "location",
+    "security",
+    "finance",
+    "monitoring",
+    "art_and_culture",
+    "travel",
+    "version_control",
+    "productivity",
+    "ai_tools",
+    "utility"
+  ],
+  "frameworks": [
+    {
+      "name": "fastmcp",
+      "language": "python",
+      "description": "A high-level framework for building MCP servers in Python",
+      "repository": "https://github.com/jlowin/fastmcp",
+      "install": {
+        "type": "pip",
+        "package": "fastmcp"
+      }
+    },
+    {
+      "name": "fastmcp_ts",
+      "language": "typescript",
+      "description": "A high-level framework for building MCP servers in TypeScript",
+      "repository": "https://github.com/punkpeye/fastmcp",
+      "install": {
+        "type": "npm",
+        "package": "fastmcp"
+      }
+    },
+    {
+      "name": "litemcp",
+      "language": "typescript",
+      "description": "A high-level framework for building MCP servers in JavaScript/TypeScript",
+      "repository": "https://github.com/wong2/litemcp",
+      "install": {
+        "type": "npm",
+        "package": "litemcp"
+      }
+    },
+    {
+      "name": "mcp_framework",
+      "language": "typescript",
+      "description": "Fast and elegant TypeScript framework for building MCP servers",
+      "repository": "https://github.com/QuantGeekDev/mcp-framework",
+      "install": {
+        "type": "npm",
+        "package": "mcp-framework"
+      }
+    },
+    {
+      "name": "foxy_contexts",
+      "language": "go",
+      "description": "Golang library to write MCP Servers declaratively with functional testing included",
+      "repository": "https://github.com/strowk/foxy-contexts",
+      "install": {
+        "type": "go",
+        "package": "github.com/strowk/foxy-contexts"
+      }
+    },
+    {
+      "name": "mcp_go",
+      "language": "go",
+      "description": "Golang SDK for building MCP Servers and Clients",
+      "repository": "https://github.com/mark3labs/mcp-go",
+      "install": {
+        "type": "go",
+        "package": "github.com/mark3labs/mcp-go"
+      }
+    },
+    {
+      "name": "mcp_golang",
+      "language": "go",
+      "description": "Golang framework for building MCP Servers, focussed on type safety",
+      "repository": "https://github.com/metoro-io/mcp-golang",
+      "install": {
+        "type": "go",
+        "package": "github.com/metoro-io/mcp-golang"
+      }
+    },
+    {
+      "name": "mcp_rs_template",
+      "language": "rust",
+      "description": "MCP CLI server template for Rust",
+      "repository": "https://github.com/linux-china/mcp-rs-template",
+      "install": {
+        "type": "cargo",
+        "package": "mcp-rs-template"
+      }
+    },
+    {
+      "name": "mcp_dotnet",
+      "language": "csharp",
+      "description": "A C# SDK for building MCP servers on .NET 9 with NativeAOT compatibility",
+      "repository": "https://github.com/salty-flower/ModelContextProtocol.NET",
+      "install": {
+        "type": "dotnet",
+        "package": "ModelContextProtocol.NET"
+      }
+    },
+    {
+      "name": "spring_ai_mcp",
+      "language": "java",
+      "description": "Java SDK and Spring Framework integration for building MCP client and MCP servers",
+      "repository": "https://github.com/spring-projects-experimental/spring-ai-mcp",
+      "install": {
+        "type": "maven",
+        "package": "org.springframework.experimental:spring-ai-mcp"
+      }
+    },
+    {
+      "name": "quarkus_mcp_server",
+      "language": "java",
+      "description": "Java SDK for building MCP servers using Quarkus",
+      "repository": "https://github.com/quarkiverse/quarkus-mcp-server",
+      "install": {
+        "type": "maven",
+        "package": "io.quarkiverse.mcp:quarkus-mcp-server"
+      }
+    },
+    {
+      "name": "mcp_agent",
+      "language": "python",
+      "description": "Build effective agents with MCP servers using simple, composable patterns",
+      "repository": "https://github.com/lastmile-ai/mcp-agent",
+      "install": {
+        "type": "pip",
+        "package": "mcp-agent"
+      }
+    }
+  ],
+  "utilities": [
+    {
+      "name": "mcp_proxy",
+      "description": "A TypeScript SSE proxy for MCP servers that use stdio transport",
+      "repository": "https://github.com/punkpeye/mcp-proxy",
+      "install": {
+        "type": "npm",
+        "package": "mcp-proxy"
+      }
+    },
+    {
+      "name": "mcp_gateway",
+      "description": "An MCP stdio to HTTP SSE transport gateway with example server and MCP client",
+      "repository": "https://github.com/boilingdata/mcp-server-and-gw",
+      "install": {
+        "type": "npm",
+        "package": "mcp-server-and-gw" 
+      }
+    },
+    {
+      "name": "mcphost",
+      "description": "A CLI host application that enables LLMs to interact with external tools through MCP",
+      "repository": "https://github.com/mark3labs/mcphost",
+      "install": {
+        "type": "go",
+        "package": "github.com/mark3labs/mcphost"
+      }
+    },
+    {
+      "name": "mcp_connect",
+      "description": "A tiny tool that enables cloud-based AI services to access local Stdio based MCP servers by HTTP/HTTPS requests",
+      "repository": "https://github.com/EvalsOne/MCP-Connect",
+      "install": {
+        "type": "npm",
+        "package": "mcp-connect"
+      }
+    },
+    {
+      "name": "mcp_bridge",
+      "description": "An openAI middleware proxy to use mcp in any existing openAI compatible client",
+      "repository": "https://github.com/SecretiveShell/MCP-Bridge",
+      "install": {
+        "type": "pip",
+        "package": "mcp-bridge"
+      }
+    },
+    {
+      "name": "mcp_cli",
+      "description": "CLI tool for testing MCP servers",
+      "repository": "https://github.com/wong2/mcp-cli",
+      "install": {
+        "type": "npm",
+        "package": "mcp-cli"
+      }
+    },
+    {
+      "name": "mcp_manager",
+      "description": "Simple Web UI to install and manage MCP servers for Claude Desktop App",
+      "repository": "https://github.com/zueai/mcp-manager",
+      "install": {
+        "type": "npm",
+        "package": "mcp-manager"
+      }
+    }
+  ],
   "servers": [
+    {
+      "name": "mcp_cloudflare",
+      "description": "Integration with Cloudflare services including Workers, KV, R2, and D1",
+      "categories": ["official", "cloud_platform"],
+      "capabilities": ["cloudflare", "workers", "kv", "r2", "d1"],
+      "version": "0.1.0",
+      "official": true,
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/cloudflare/mcp-server-cloudflare.git",
+        "package": "mcp-server-cloudflare",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_base",
+      "description": "Base Network integration for onchain tools, allowing interaction with Base Network and Coinbase API",
+      "categories": ["official", "finance"],
+      "capabilities": ["cryptocurrency", "blockchain", "wallet", "defi"],
+      "version": "0.1.0",
+      "official": true,
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/base/base-mcp.git",
+        "package": "base-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_opik",
+      "description": "Talk to your LLM observability, traces and monitoring captured by Opik using natural language",
+      "categories": ["official", "developer_tools", "monitoring"],
+      "capabilities": ["observability", "llm", "traces"],
+      "version": "0.1.0",
+      "official": true,
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/comet-ml/opik-mcp.git",
+        "package": "opik-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_jetbrains",
+      "description": "Connect to JetBrains IDE",
+      "categories": ["official", "developer_tools"],
+      "capabilities": ["ide", "jetbrains"],
+      "version": "0.1.0",
+      "official": true,
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/JetBrains/mcpProxy.git",
+        "package": "mcpProxy",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_exa",
+      "description": "A Model Context Protocol server that lets AI assistants use the Exa AI Search API for web searches",
+      "categories": ["official", "search"],
+      "capabilities": ["web", "information", "exa"],
+      "version": "0.1.0",
+      "official": true,
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/exa-labs/exa-mcp-server.git",
+        "package": "exa-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_metoro",
+      "description": "Query and interact with kubernetes environments monitored by Metoro",
+      "categories": ["official", "monitoring", "cloud_platform"],
+      "capabilities": ["kubernetes"],
+      "version": "0.1.0",
+      "official": true,
+      "install": {
+        "type": "go",
+        "repository": "https://github.com/metoro-io/metoro-mcp-server.git",
+        "package": "metoro-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_grafana",
+      "description": "Search dashboards, investigate incidents and query datasources in your Grafana instance",
+      "categories": ["official", "monitoring"],
+      "capabilities": ["grafana", "dashboard", "incident", "datasource"],
+      "version": "0.1.0",
+      "official": true,
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/grafana/mcp-grafana.git",
+        "package": "mcp-grafana",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_screenpipe",
+      "description": "Local-first system capturing screen/audio with timestamped indexing and semantic search",
+      "categories": ["official", "utility"],
+      "capabilities": ["screen_capture", "audio_capture", "indexing", "semantic_search", "llm"],
+      "version": "0.1.0",
+      "official": true,
+      "install": {
+        "type": "cargo",
+        "repository": "https://github.com/mediar-ai/screenpipe.git",
+        "package": "screenpipe",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_make",
+      "description": "Turn your Make scenarios into callable tools for AI assistants",
+      "categories": ["official", "automation"],
+      "capabilities": ["integration", "tools", "make"],
+      "version": "0.1.0",
+      "official": true,
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/integromat/make-mcp-server.git",
+        "package": "make-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_trieve",
+      "description": "Crawl, embed, chunk, search, and retrieve information from datasets through Trieve",
+      "categories": ["official", "search"],
+      "capabilities": ["embedding", "chunking", "retrieval", "trieve"],
+      "version": "0.1.0",
+      "official": true,
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/devflowinc/trieve.git",
+        "package": "trieve-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_iaptic",
+      "description": "Connect with iaptic to ask about your Customer Purchases, Transaction data and App Revenue statistics",
+      "categories": ["official", "customer_data"],
+      "capabilities": ["purchases", "transactions", "revenue", "statistics"],
+      "version": "0.1.0",
+      "official": true,
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/iaptic/mcp-server-iaptic.git",
+        "package": "mcp-server-iaptic",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_clickhouse",
+      "description": "ClickHouse database integration with schema inspection and query capabilities",
+      "categories": ["official", "database"],
+      "capabilities": ["clickhouse", "schema", "query"],
+      "version": "0.1.0",
+      "official": true,
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/ClickHouse/mcp-clickhouse.git",
+        "package": "mcp-clickhouse",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_filesystem",
+      "description": "Direct local file system access",
+      "categories": ["file_system"],
+      "capabilities": ["read", "write", "list", "directory"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-filesystem",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_github",
+      "description": "GitHub API integration for repository management, PRs, issues, and more",
+      "categories": ["version_control"],
+      "capabilities": ["github", "repository", "pr", "issue"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-github",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_postgres",
+      "description": "PostgreSQL database integration with schema inspection and query capabilities",
+      "categories": ["database"],
+      "capabilities": ["postgres", "schema", "query"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-postgres",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_sqlite",
+      "description": "SQLite database operations with built-in analysis features",
+      "categories": ["database"],
+      "capabilities": ["sqlite", "analysis"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-sqlite",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_memory",
+      "description": "Knowledge graph-based persistent memory system for maintaining context",
+      "categories": ["knowledge"],
+      "capabilities": ["memory", "graph", "context"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-memory",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_google_maps",
+      "description": "Google Maps integration for location services, routing, and place details",
+      "categories": ["location"],
+      "capabilities": ["maps", "routing", "place"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-google-maps",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_brave_search",
+      "description": "Web search capabilities using Brave's Search API",
+      "categories": ["search"],
+      "capabilities": ["web", "brave"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-brave-search",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_puppeteer",
+      "description": "Browser automation for web scraping and interaction",
+      "categories": ["browser_automation"],
+      "capabilities": ["web", "scraping", "puppeteer"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-puppeteer",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_duckdb",
+      "description": "DuckDB database integration with schema inspection and query capabilities",
+      "categories": ["database"],
+      "capabilities": ["duckdb", "schema", "query"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/ktanaka101/mcp-server-duckdb.git",
+        "package": "mcp-server-duckdb",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_mongodb",
+      "description": "MongoDB Lens: Full Featured MCP Server for MongoDB Databases",
+      "categories": ["database"],
+      "capabilities": ["mongodb", "schema", "query"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/furey/mongodb-lens.git",
+        "package": "mongodb-lens",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_playwright",
+      "description": "Browser automation for web scraping and interaction using Playwright",
+      "categories": ["browser_automation"],
+      "capabilities": ["web", "scraping", "playwright"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/executeautomation/mcp-playwright.git",
+        "package": "playwright-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_supabase",
+      "description": "Supabase MCP Server for managing and creating projects and organisations in Supabase",
+      "categories": ["database"],
+      "capabilities": ["supabase", "postgres", "auth"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/joshuarileydev/supabase.git",
+        "package": "supabase-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_neo4j",
+      "description": "Model Context Protocol with Neo4j",
+      "categories": ["database"],
+      "capabilities": ["neo4j", "graph", "query"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/neo4j-contrib/mcp-neo4j.git",
+        "package": "mcp-neo4j",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_neon",
+      "description": "An MCP Server for creating and managing Postgres databases using Neon Serverless Postgres",
+      "categories": ["database"],
+      "capabilities": ["postgres", "neon", "serverless"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/neondatabase/mcp-server-neon.git",
+        "package": "mcp-server-neon",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_tavily",
+      "description": "Tavily AI search API",
+      "categories": ["search"],
+      "capabilities": ["tavily", "ai", "web"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/Tomatio13/mcp-server-tavily.git",
+        "package": "mcp-server-tavily",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_kagi",
+      "description": "Kagi search API integration",
+      "categories": ["search"],
+      "capabilities": ["kagi", "web"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/ac3xx/mcp-servers-kagi.git",
+        "package": "mcp-servers-kagi",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_rijksmuseum",
+      "description": "Rijksmuseum API integration for artwork search, details, and collections",
+      "categories": ["art_and_culture"],
+      "capabilities": ["art", "culture", "museum", "search"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/r-huijts/rijksmuseum-mcp.git",
+        "package": "rijksmuseum-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_apple_shortcuts",
+      "description": "An MCP Server Integration with Apple Shortcuts",
+      "categories": ["utility"],
+      "capabilities": ["apple", "shortcuts", "automation", "macos"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/recursechat/mcp-server-apple-shortcuts.git",
+        "package": "mcp-server-apple-shortcuts",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_home_assistant",
+      "description": "Expose all Home Assistant voice intents through a Model Context Protocol Server allowing home control",
+      "categories": ["smart_home"],
+      "capabilities": ["home_automation", "control"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/allenporter/mcp-server-home-assistant.git",
+        "package": "mcp-server-home-assistant",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_timeplus",
+      "description": "MCP server for Apache Kafka and Timeplus",
+      "categories": ["database"],
+      "capabilities": ["kafka", "streaming", "timeplus"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/jovezhong/mcp-timeplus.git",
+        "package": "mcp-timeplus",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_slack",
+      "description": "Slack workspace integration for channel management and messaging",
+      "categories": ["communication"],
+      "capabilities": ["slack", "messaging", "workspace"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-slack",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_sentry",
+      "description": "Sentry.io integration for error tracking and performance monitoring",
+      "categories": ["monitoring"],
+      "capabilities": ["sentry", "errors", "performance"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-sentry",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_docker",
+      "description": "Docker container management and operations through MCP",
+      "categories": ["developer_tools"],
+      "capabilities": ["docker", "containers"],
+      "version": "0.1.0",
+      "install": {
+        "type": "go",
+        "repository": "https://github.com/QuantGeekDev/docker-mcp.git",
+        "package": "docker-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_kubernetes",
+      "description": "Kubernetes cluster operations through MCP",
+      "categories": ["cloud_platform"],
+      "capabilities": ["kubernetes", "containers"],
+      "version": "0.1.0",
+      "install": {
+        "type": "go",
+        "repository": "https://github.com/strowk/mcp-k8s-go.git",
+        "package": "mcp-k8s-go",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_airtable",
+      "description": "Airtable database integration with schema inspection, read and write capabilities",
+      "categories": ["database"],
+      "capabilities": ["airtable", "schema", "crud"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/domdomegg/airtable-mcp-server.git",
+        "package": "airtable-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_elasticsearch",
+      "description": "MCP Server implementation that provides Elasticsearch interaction",
+      "categories": ["database"],
+      "capabilities": ["elasticsearch", "search", "query"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/cr7258/elasticsearch-mcp-server.git",
+        "package": "elasticsearch-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_notion",
+      "description": "Interacting with Notion API",
+      "categories": ["productivity"],
+      "capabilities": ["notion", "database", "pages"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/suekou/mcp-notion-server.git",
+        "package": "mcp-notion-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_pinecone",
+      "description": "Pinecone integration with vector search capabilities",
+      "categories": ["database"],
+      "capabilities": ["pinecone", "vector", "embedding"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/sirmews/mcp-pinecone.git",
+        "package": "mcp-pinecone",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_iterm",
+      "description": "A Model Context Protocol server that provides access to iTerm",
+      "categories": ["command_line"],
+      "capabilities": ["terminal", "iterm", "macos"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/ferrislucas/iterm-mcp.git",
+        "package": "iterm-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_commands",
+      "description": "Run any command with run_command and run_script tools",
+      "categories": ["command_line"],
+      "capabilities": ["shell", "script", "execution"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/g0t4/mcp-server-commands.git",
+        "package": "mcp-server-commands",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_imessage",
+      "description": "An MCP server that provides safe access to your iMessage database",
+      "categories": ["communication"],
+      "capabilities": ["imessage", "messages", "macos"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/hannesrudolph/imessage-query-fastmcp-mcp-server.git",
+        "package": "imessage-query-fastmcp-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_coincap",
+      "description": "Real-time cryptocurrency market data integration using CoinCap's public API",
+      "categories": ["finance"],
+      "capabilities": ["cryptocurrency", "market_data", "prices"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/QuantGeekDev/coincap-mcp.git",
+        "package": "coincap-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_alpha_vantage",
+      "description": "Alpha Vantage API integration to fetch both stock and crypto information",
+      "categories": ["finance"],
+      "capabilities": ["stocks", "cryptocurrency", "market_data"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/berlinbra/alpha-vantage-mcp.git",
+        "package": "alpha-vantage-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_evm",
+      "description": "Comprehensive blockchain services for 30+ EVM networks",
+      "categories": ["finance"],
+      "capabilities": ["blockchain", "evm", "ethereum", "tokens", "nft"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/mcpdotdirect/evm-mcp-server.git",
+        "package": "evm-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_gitlab",
+      "description": "GitLab platform integration for project management and CI/CD operations",
+      "categories": ["version_control"],
+      "capabilities": ["gitlab", "ci_cd", "projects"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-gitlab",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_git",
+      "description": "Direct Git repository operations including reading, searching, and analyzing local repositories",
+      "categories": ["version_control"],
+      "capabilities": ["git", "local", "repository"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-git",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_google_drive",
+      "description": "Google Drive integration for listing, reading, and searching files",
+      "categories": ["file_system"],
+      "capabilities": ["google_drive", "cloud_storage", "search"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-gdrive",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_box",
+      "description": "Box integration for listing, reading and searching files",
+      "categories": ["file_system"],
+      "capabilities": ["box", "cloud_storage", "search"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/hmk/box-mcp-server.git",
+        "package": "box-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_arxiv",
+      "description": "Search ArXiv research papers",
+      "categories": ["search"],
+      "capabilities": ["arxiv", "research", "papers"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/blazickjp/arxiv-mcp-server.git",
+        "package": "arxiv-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_duckduckgo",
+      "description": "Web search using DuckDuckGo",
+      "categories": ["search"],
+      "capabilities": ["duckduckgo", "web"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/nickclyde/duckduckgo-mcp-server.git",
+        "package": "duckduckgo-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_webresearch",
+      "description": "Search Google and do deep web research on any topic",
+      "categories": ["search"],
+      "capabilities": ["google", "research", "web"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/mzxrai/mcp-webresearch.git",
+        "package": "mcp-webresearch",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_dnstwist",
+      "description": "MCP server for dnstwist, a powerful DNS fuzzing tool that helps detect typosquatting",
+      "categories": ["security"],
+      "capabilities": ["dns", "typosquatting", "phishing"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/BurtTheCoder/mcp-dnstwist.git",
+        "package": "mcp-dnstwist",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_shodan",
+      "description": "MCP server for querying the Shodan API and Shodan CVEDB",
+      "categories": ["security"],
+      "capabilities": ["shodan", "vulnerability", "ip_lookup"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/BurtTheCoder/mcp-shodan.git",
+        "package": "mcp-shodan",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_virustotal",
+      "description": "MCP server for querying the VirusTotal API",
+      "categories": ["security"],
+      "capabilities": ["virustotal", "malware", "scanning"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/BurtTheCoder/mcp-virustotal.git",
+        "package": "mcp-virustotal",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_airbnb",
+      "description": "Provides tools to search Airbnb and get listing details",
+      "categories": ["travel"],
+      "capabilities": ["airbnb", "lodging", "search"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/openbnb-org/mcp-server-airbnb.git",
+        "package": "mcp-server-airbnb",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_ns_travel",
+      "description": "Access Dutch Railways (NS) travel information, schedules, and real-time updates",
+      "categories": ["travel"],
+      "capabilities": ["railway", "schedule", "transport"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/r-huijts/ns-mcp-server.git",
+        "package": "ns-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_video_editing",
+      "description": "Add, Analyze, Search, and Generate Video Edits from your Video Jungle Collection",
+      "categories": ["art_and_culture"],
+      "capabilities": ["video", "editing", "search"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/burningion/video-editing-mcp.git",
+        "package": "video-editing-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_memory_mesh",
+      "description": "Enhanced graph-based memory with a focus on AI role-play and story generation",
+      "categories": ["knowledge"],
+      "capabilities": ["memory", "graph", "roleplay"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/CheMiguel23/MemoryMesh.git",
+        "package": "memory-mesh",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_cognee",
+      "description": "Memory manager for AI apps and Agents using various graph and vector stores",
+      "categories": ["knowledge"],
+      "capabilities": ["memory", "graph", "vector"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/topoteretes/cognee.git",
+        "package": "cognee-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_zotero",
+      "description": "A connector for LLMs to work with collections and sources on your Zotero Cloud",
+      "categories": ["knowledge"],
+      "capabilities": ["zotero", "research", "bibliography"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/kaliaboi/mcp-zotero.git",
+        "package": "mcp-zotero",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_figma_context",
+      "description": "Provide coding agents direct access to Figma data to help them one-shot design implementation",
+      "categories": ["developer_tools"],
+      "capabilities": ["figma", "design", "implementation"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/GLips/Figma-Context-MCP.git",
+        "package": "figma-context-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_xcode",
+      "description": "Xcode integration for project management, file operations, and build automation",
+      "categories": ["developer_tools"],
+      "capabilities": ["xcode", "ios", "build"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/r-huijts/xcode-mcp-server.git",
+        "package": "xcode-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_tf",
+      "description": "A Terraform MCP server allowing AI assistants to manage and operate Terraform environments",
+      "categories": ["developer_tools"],
+      "capabilities": ["terraform", "infrastructure", "cloud"],
+      "version": "0.1.0",
+      "install": {
+        "type": "cargo",
+        "repository": "https://github.com/nwiizo/tfmcp.git",
+        "package": "tfmcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_vrchat",
+      "description": "This is an MCP server for interacting with the VRChat API",
+      "categories": ["communication"],
+      "capabilities": ["vrchat", "social", "virtual_reality"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/sawa-zen/vrchat-mcp.git",
+        "package": "vrchat-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_email",
+      "description": "Integration with gmail and Google Calendar",
+      "categories": ["communication"],
+      "capabilities": ["gmail", "calendar", "google"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/MarkusPfundstein/mcp-gsuite.git",
+        "package": "mcp-gsuite",
+        "global": true
+      }
+    },
     {
       "name": "mcp_weather",
       "description": "MCP server for getting weather information",
+      "categories": ["utility"],
       "capabilities": ["weather", "forecast", "temperature"],
       "version": "0.1.0",
       "install": {
@@ -36,9 +1129,10 @@
     {
       "name": "mcp_datetime",
       "description": "MCP server for datetime operations and conversions",
+      "categories": ["utility"],
       "capabilities": ["datetime", "time", "date", "conversion"],
       "version": "0.1.0",
-      "installation": {
+      "install": {
         "type": "npm",
         "repository": "https://github.com/ZeparHyfar/mcp-datetime.git",
         "package": "mcp-datetime",
@@ -48,9 +1142,10 @@
     {
       "name": "mcp_search",
       "description": "MCP server for web searches",
-      "capabilities": ["search", "web", "information"],
+      "categories": ["search"],
+      "capabilities": ["web", "information"],
       "version": "0.1.0",
-      "installation": {
+      "install": {
         "type": "npm",
         "repository": "https://github.com/ZeparHyfar/mcp-search.git",
         "package": "mcp-search",
@@ -60,13 +1155,1939 @@
     {
       "name": "mcp_file",
       "description": "MCP server for file operations",
+      "categories": ["file_system"],
       "capabilities": ["file", "read", "write", "list", "directory"],
       "version": "0.1.0",
-      "installation": {
+      "install": {
         "type": "pip",
+        "repository": "https://github.com/ZeparHyfar/mcp-file.git",
         "package": "mcp-file",
-        "repository": "https://github.com/ZeparHyfar/mcp-file.git"
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_trino",
+      "description": "Trino MCP Server to query and access data from Trino Clusters",
+      "categories": ["database"],
+      "capabilities": ["trino", "query", "sql"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/Dataring-engineering/mcp-server-trino.git",
+        "package": "mcp-server-trino",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_bigquery",
+      "description": "BigQuery database integration with schema inspection and query capabilities",
+      "categories": ["database"],
+      "capabilities": ["bigquery", "schema", "query"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/LucasHild/mcp-server-bigquery.git",
+        "package": "mcp-server-bigquery",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_tidb",
+      "description": "TiDB database integration with schema inspection and query capabilities",
+      "categories": ["database"],
+      "capabilities": ["tidb", "schema", "query"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/c4pt0r/mcp-server-tidb.git",
+        "package": "mcp-server-tidb",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_jira",
+      "description": "Read jira data via JQL and api and execute requests to create and edit tickets",
+      "categories": ["project_management"],
+      "capabilities": ["jira", "tickets", "tracking"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/KS-GEN-AI/jira-mcp-server.git",
+        "package": "jira-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_confluence",
+      "description": "Get Confluence data via CQL and read pages",
+      "categories": ["knowledge"],
+      "capabilities": ["confluence", "documentation", "wiki"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/KS-GEN-AI/confluence-mcp-server.git",
+        "package": "confluence-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_attio",
+      "description": "Allows AI clients to manage records and notes in Attio CRM",
+      "categories": ["crm"],
+      "capabilities": ["attio", "records", "notes"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/hmk/attio-mcp-server.git",
+        "package": "attio-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_twitter",
+      "description": "Interact with Twitter search and timeline",
+      "categories": ["communication"],
+      "capabilities": ["twitter", "social_media", "search"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/adhikasp/mcp-twikit.git",
+        "package": "mcp-twikit",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_asana",
+      "description": "This Model Context Protocol server implementation of Asana allows you to talk to Asana API",
+      "categories": ["project_management"],
+      "capabilities": ["asana", "tasks", "projects"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/roychri/mcp-server-asana.git",
+        "package": "mcp-server-asana",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_google_tasks",
+      "description": "An MCP server to Manage Google Tasks",
+      "categories": ["productivity"],
+      "capabilities": ["google_tasks", "todo", "tasks"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/zcaceres/gtasks-mcp.git",
+        "package": "gtasks-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_nostr",
+      "description": "A Nostr MCP server that allows to interact with Nostr, enabling posting notes, and more",
+      "categories": ["communication"],
+      "capabilities": ["nostr", "social", "notes"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/AbdelStark/nostr-mcp.git",
+        "package": "nostr-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_fetch",
+      "description": "An MCP server to flexibly fetch JSON, text, and HTML data",
+      "categories": ["developer_tools"],
+      "capabilities": ["fetch", "http", "data"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/zcaceres/fetch-mcp.git",
+        "package": "fetch-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_markdownify",
+      "description": "An MCP server to convert almost any file or web content into Markdown",
+      "categories": ["data_science"],
+      "capabilities": ["markdown", "conversion", "content"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/zcaceres/markdownify-mcp.git",
+        "package": "markdownify-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_apify",
+      "description": "Use 3,000+ pre-built cloud tools, known as Actors, to extract data from websites",
+      "categories": ["scraping"],
+      "capabilities": ["data_extraction", "apify", "web"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/apify/actors-mcp-server.git",
+        "package": "actors-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_wolfram_alpha",
+      "description": "An MCP server for querying wolfram alpha API",
+      "categories": ["knowledge"],
+      "capabilities": ["computation", "wolfram", "math"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/SecretiveShell/MCP-wolfram-alpha.git",
+        "package": "mcp-wolfram-alpha",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_strava",
+      "description": "An MCP server for Strava, an app for tracking physical exercise",
+      "categories": ["fitness"],
+      "capabilities": ["strava", "exercise", "tracking"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/tomekkorbak/strava-mcp-server.git",
+        "package": "strava-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_oura",
+      "description": "An MCP server for Oura, an app for tracking sleep",
+      "categories": ["health"],
+      "capabilities": ["oura", "sleep", "tracking"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/tomekkorbak/oura-mcp-server.git",
+        "package": "oura-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_graphql",
+      "description": "Allows the AI to query GraphQL servers",
+      "categories": ["developer_tools"],
+      "capabilities": ["graphql", "api", "query"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/blurrah/mcp-graphql.git",
+        "package": "mcp-graphql",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_openai",
+      "description": "Chat with OpenAI's smartest models",
+      "categories": ["ai_tools"],
+      "capabilities": ["openai", "llm", "chat"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/mzxrai/mcp-openai.git",
+        "package": "mcp-openai",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_replicate",
+      "description": "Provides the ability to generate images via Replicate's API",
+      "categories": ["ai_tools"],
+      "capabilities": ["replicate", "image_generation", "flux"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/awkoy/replicate-flux-mcp.git",
+        "package": "replicate-flux-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_bedrock",
+      "description": "Use Amazon Nova Canvas model for image generation",
+      "categories": ["ai_tools"],
+      "capabilities": ["amazon_bedrock", "image_generation", "canvas"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/zxkane/mcp-server-amazon-bedrock.git",
+        "package": "mcp-server-amazon-bedrock",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_bitcoin",
+      "description": "A Model Context Protocol server that enables AI models to interact with Bitcoin",
+      "categories": ["finance"],
+      "capabilities": ["bitcoin", "cryptocurrency", "blockchain"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/AbdelStark/bitcoin-mcp.git",
+        "package": "bitcoin-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_perplexity",
+      "description": "Interacting with Perplexity API",
+      "categories": ["ai_tools"],
+      "capabilities": ["perplexity", "search", "llm"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/tanigami/mcp-server-perplexity.git",
+        "package": "mcp-server-perplexity",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_timeserver",
+      "description": "Access the time in any timezone and get the current local time",
+      "categories": ["utility"],
+      "capabilities": ["time", "timezone", "clock"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/SecretiveShell/MCP-timeserver.git",
+        "package": "mcp-timeserver",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_whereami",
+      "description": "A lightweight mcp server that tells you exactly where you are based on your current IP",
+      "categories": ["location"],
+      "capabilities": ["ip", "geolocation", "utility"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/kukapay/whereami-mcp.git",
+        "package": "whereami-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_whattimeisit",
+      "description": "A lightweight mcp server that tells you exactly what time is it",
+      "categories": ["utility"],
+      "capabilities": ["time", "clock"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/kukapay/whattimeisit-mcp.git",
+        "package": "whattimeisit-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_whoami",
+      "description": "A lightweight MCP server that tells you exactly who you are",
+      "categories": ["utility"],
+      "capabilities": ["identity", "user"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/kukapay/whoami-mcp.git",
+        "package": "whoami-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_youtube_transcript",
+      "description": "Fetch YouTube subtitles and transcripts for AI analysis",
+      "categories": ["browser_automation", "media"],
+      "capabilities": ["youtube", "transcript", "subtitles"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/kimtaeyoon83/mcp-server-youtube-transcript.git",
+        "package": "mcp-server-youtube-transcript",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_youtube",
+      "description": "Fetch YouTube subtitles",
+      "categories": ["media"],
+      "capabilities": ["youtube", "subtitles"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/anaisbetts/mcp-youtube.git",
+        "package": "mcp-youtube",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_tiktok",
+      "description": "Interact with TikTok videos",
+      "categories": ["media", "social_media"],
+      "capabilities": ["tiktok", "videos"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/Seym0n/tiktok-mcp.git",
+        "package": "tiktok-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_everything_search",
+      "description": "Fast Windows file search using Everything SDK",
+      "categories": ["file_system"],
+      "capabilities": ["windows", "search", "files"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/mamertofabian/mcp-everything-search.git",
+        "package": "mcp-everything-search",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_code_context",
+      "description": "Share code context with LLMs via MCP or clipboard",
+      "categories": ["developer_tools"],
+      "capabilities": ["code", "context", "clipboard"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/cyberchitta/llm-context.py.git",
+        "package": "llm-context.py",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_quarkus_filesystem",
+      "description": "A filesystem allowing for browsing and editing files implemented in Java using Quarkus",
+      "categories": ["file_system"],
+      "capabilities": ["file", "read", "write", "java", "quarkus"],
+      "version": "0.1.0",
+      "install": {
+        "type": "maven",
+        "repository": "https://github.com/quarkiverse/quarkus-mcp-servers/tree/main/filesystem",
+        "package": "io.quarkiverse.mcp.filesystem",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_opendal",
+      "description": "Access any storage with Apache OpenDAL™",
+      "categories": ["file_system"],
+      "capabilities": ["opendal", "storage", "cloud"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/Xuanwo/mcp-server-opendal.git",
+        "package": "mcp-server-opendal",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_coinmarket",
+      "description": "Coinmarket API integration to fetch cryptocurrency listings and quotes",
+      "categories": ["finance"],
+      "capabilities": ["cryptocurrency", "market", "quotes"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/anjor/coinmarket-mcp-server.git",
+        "package": "coinmarket-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_tasty_agent",
+      "description": "Tastyworks API integration to handle trading activities on Tastytrade",
+      "categories": ["finance"],
+      "capabilities": ["trading", "tastyworks", "tastytrade"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/ferdousbhai/tasty-agent.git",
+        "package": "tasty-agent",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_investor_agent",
+      "description": "Yahoo Finance integration to fetch stock market data including options recommendations",
+      "categories": ["finance"],
+      "capabilities": ["stock", "yahoo", "options"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/ferdousbhai/investor-agent.git",
+        "package": "investor-agent",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_bankless_onchain",
+      "description": "Bankless Onchain API to interact with smart contracts, query transaction and token information",
+      "categories": ["finance"],
+      "capabilities": ["blockchain", "smart_contracts", "transactions", "tokens"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/Bankless/onchain-mcp.git",
+        "package": "onchain-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_cryptopanic",
+      "description": "Providing latest cryptocurrency news to AI agents, powered by CryptoPanic",
+      "categories": ["finance"],
+      "capabilities": ["cryptocurrency", "news", "cryptopanic"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/kukapay/cryptopanic-mcp-server.git",
+        "package": "cryptopanic-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_whale_tracker",
+      "description": "A mcp server for tracking cryptocurrency whale transactions",
+      "categories": ["finance"],
+      "capabilities": ["cryptocurrency", "whale", "transactions"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/kukapay/whale-tracker-mcp.git",
+        "package": "whale-tracker-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_crypto_feargreed",
+      "description": "Providing real-time and historical Crypto Fear & Greed Index data",
+      "categories": ["finance"],
+      "capabilities": ["cryptocurrency", "fear", "greed", "index"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/kukapay/crypto-feargreed-mcp.git",
+        "package": "crypto-feargreed-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_dune_analytics",
+      "description": "A mcp server that bridges Dune Analytics data to AI agents",
+      "categories": ["finance", "analytics"],
+      "capabilities": ["dune", "analytics", "cryptocurrency"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/kukapay/dune-analytics-mcp.git",
+        "package": "dune-analytics-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_fantasy_pl",
+      "description": "An MCP server for real-time Fantasy Premier League data and analysis tools",
+      "categories": ["gaming"],
+      "capabilities": ["fantasy", "premier_league", "football", "soccer"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/rishijatia/fantasy-pl-mcp.git",
+        "package": "fantasy-pl-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_ragdocs",
+      "description": "An MCP server implementation that provides tools for retrieving and processing documentation through vector search",
+      "categories": ["knowledge"],
+      "capabilities": ["rag", "vector_search", "documentation"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/hannesrudolph/mcp-ragdocs.git",
+        "package": "mcp-ragdocs",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_summarizer",
+      "description": "AI Summarization MCP Server, Support for multiple content types: Plain text, Web pages, PDF documents, EPUB books, HTML content",
+      "categories": ["knowledge"],
+      "capabilities": ["summarization", "text", "pdf", "epub", "html"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/0xshellming/mcp-summarizer.git",
+        "package": "mcp-summarizer",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_graphlit",
+      "description": "Ingest anything from Slack, Discord, websites, Google Drive, Linear or GitHub into a Graphlit project",
+      "categories": ["knowledge"],
+      "capabilities": ["ingest", "slack", "discord", "drive", "linear", "github"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/graphlit/graphlit-mcp-server.git",
+        "package": "graphlit-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_geo",
+      "description": "Geocoding MCP server for nominatim, ArcGIS, Bing",
+      "categories": ["location"],
+      "capabilities": ["geocoding", "nominatim", "arcgis", "bing"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/webcoderz/MCP-Geo.git",
+        "package": "mcp-geo",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_ipinfo",
+      "description": "IP address geolocation and network information using IPInfo API",
+      "categories": ["location"],
+      "capabilities": ["ip", "geolocation", "network"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/briandconnelly/mcp-server-ipinfo.git",
+        "package": "mcp-server-ipinfo",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_qgis",
+      "description": "Connects QGIS Desktop to Claude AI through the MCP",
+      "categories": ["location"],
+      "capabilities": ["qgis", "geospatial", "maps"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/jjsantos01/qgis_mcp.git",
+        "package": "qgis_mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_nearby_search",
+      "description": "An MCP server for nearby place searches with IP-based location detection",
+      "categories": ["location"],
+      "capabilities": ["nearby", "places", "location"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/kukapay/nearby-search-mcp.git",
+        "package": "nearby-search-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_marketing_tools",
+      "description": "A suite of marketing tools from Open Strategy Partners including writing style, editing codes, and product marketing value map creation",
+      "categories": ["marketing"],
+      "capabilities": ["marketing", "writing", "editing", "value_map"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/open-strategy-partners/osp_marketing_tools.git",
+        "package": "osp_marketing_tools",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_raygun",
+      "description": "Raygun API V3 integration for crash reporting and real user monitoring",
+      "categories": ["monitoring"],
+      "capabilities": ["raygun", "crash_reporting", "user_monitoring"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/MindscapeHQ/mcp-server-raygun.git",
+        "package": "mcp-server-raygun",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_nyt",
+      "description": "Search articles using the NYTimes API",
+      "categories": ["search"],
+      "capabilities": ["nytimes", "articles", "news"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/angheljf/nyt.git",
+        "package": "nyt",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_fetch",
+      "description": "Efficient web content fetching and processing for AI consumption",
+      "categories": ["search"],
+      "capabilities": ["fetch", "web", "content"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/modelcontextprotocol/servers.git",
+        "package": "server-fetch",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_search1api",
+      "description": "Search via search1api (requires paid API key)",
+      "categories": ["search"],
+      "capabilities": ["search1api", "web", "search"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/fatwang2/search1api-mcp.git",
+        "package": "search1api-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_simple_arxiv",
+      "description": "MCP for LLM to search and read papers from arXiv",
+      "categories": ["search"],
+      "capabilities": ["arxiv", "papers", "research"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/andybrandt/mcp-simple-arxiv.git",
+        "package": "mcp-simple-arxiv",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_simple_pubmed",
+      "description": "MCP to search and read medical / life sciences papers from PubMed",
+      "categories": ["search"],
+      "capabilities": ["pubmed", "medical", "papers"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/andybrandt/mcp-simple-pubmed.git",
+        "package": "mcp-simple-pubmed",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_rag_web_browser",
+      "description": "An MCP server for Apify's open-source RAG Web Browser Actor to perform web searches, scrape URLs, and return content in Markdown",
+      "categories": ["search"],
+      "capabilities": ["rag", "web", "scrape", "apify"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/apify/mcp-server-rag-web-browser.git",
+        "package": "mcp-server-rag-web-browser",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_searxng",
+      "description": "An MCP Server to connect to searXNG instances",
+      "categories": ["search"],
+      "capabilities": ["searxng", "web", "search"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/SecretiveShell/MCP-searxng.git",
+        "package": "mcp-searxng",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_clojars",
+      "description": "Clojars MCP Server for upto date dependency information of Clojure libraries",
+      "categories": ["search"],
+      "capabilities": ["clojars", "clojure", "dependencies"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/Bigsy/Clojars-MCP-Server.git",
+        "package": "clojars-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_hn",
+      "description": "An MCP server to search Hacker News, get top stories, and more",
+      "categories": ["search"],
+      "capabilities": ["hacker_news", "stories", "search"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/erithwik/mcp-hn.git",
+        "package": "mcp-hn",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_google_news",
+      "description": "Google News integration with automatic topic categorization, multi-language support",
+      "categories": ["search"],
+      "capabilities": ["google_news", "news", "topics"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/ChanMeng666/server-google-news.git",
+        "package": "server-google-news",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_trieve",
+      "description": "Crawl, embed, chunk, search, and retrieve information from datasets through Trieve",
+      "categories": ["search"],
+      "capabilities": ["trieve", "embedding", "search"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/devflowinc/trieve.git",
+        "package": "mcp-trieve",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_vectorize",
+      "description": "Vectorize MCP server for advanced retrieval, Private Deep Research, Anything-to-Markdown file extraction and text chunking",
+      "categories": ["search"],
+      "capabilities": ["vectorize", "retrieval", "markdown", "chunking"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/vectorize-io/vectorize-mcp-server.git",
+        "package": "vectorize-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_security_audit",
+      "description": "A powerful MCP Server that audits npm package dependencies for security vulnerabilities",
+      "categories": ["security"],
+      "capabilities": ["npm", "security", "audit", "vulnerabilities"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/qianniuspace/mcp-security-audit.git",
+        "package": "mcp-security-audit",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_maigret",
+      "description": "MCP server for maigret, a powerful OSINT tool that collects user account information from various public sources",
+      "categories": ["security"],
+      "capabilities": ["osint", "username", "accounts"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/BurtTheCoder/mcp-maigret.git",
+        "package": "mcp-maigret",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_orkl",
+      "description": "MCP server for querying the ORKL API",
+      "categories": ["security"],
+      "capabilities": ["orkl", "threat", "intelligence"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/fr0gger/MCP_Security.git",
+        "package": "mcp-security",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_mysql",
+      "description": "MySQL database integration with configurable access controls, schema inspection, and comprehensive security guidelines",
+      "categories": ["database"],
+      "capabilities": ["mysql", "schema", "query"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/designcomputer/mysql_mcp_server.git",
+        "package": "mysql_mcp_server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_mysql_server",
+      "description": "Node.js-based MySQL database integration that provides secure MySQL database operations",
+      "categories": ["database"],
+      "capabilities": ["mysql", "schema", "query"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/f4ww4z/mcp-mysql-server.git",
+        "package": "mcp-mysql-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_firebase",
+      "description": "Firebase services including Auth, Firestore and Storage",
+      "categories": ["database"],
+      "capabilities": ["firebase", "auth", "firestore", "storage"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/gannonh/firebase-mcp.git",
+        "package": "firebase-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_fireproof",
+      "description": "Fireproof ledger database with multi-user sync",
+      "categories": ["database"],
+      "capabilities": ["fireproof", "ledger", "sync"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/fireproof-storage/mcp-database-server.git",
+        "package": "mcp-database-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_convex",
+      "description": "Convex database integration to introspect tables, functions, and run oneoff queries",
+      "categories": ["database"],
+      "capabilities": ["convex", "tables", "functions", "queries"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/get-convex/convex-backend.git",
+        "package": "convex-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_bigquery_server",
+      "description": "Server implementation for Google BigQuery integration that enables direct BigQuery database access and querying capabilities",
+      "categories": ["database"],
+      "capabilities": ["bigquery", "google", "queries"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/ergut/mcp-bigquery-server.git",
+        "package": "mcp-bigquery-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_nile",
+      "description": "MCP server for Nile's Postgres platform - Manage and query Postgres databases, tenants, users, auth using LLMs",
+      "categories": ["database"],
+      "capabilities": ["nile", "postgres", "tenants", "auth"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/niledatabase/nile-mcp-server.git",
+        "package": "nile-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_snowflake",
+      "description": "Snowflake integration implementing read and (optional) write operations as well as insight tracking",
+      "categories": ["database"],
+      "capabilities": ["snowflake", "read", "write", "insights"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/isaacwasserman/mcp-snowflake-server.git",
+        "package": "mcp-snowflake-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_sqlite_explorer",
+      "description": "An MCP server that provides safe, read-only access to SQLite databases through Model Context Protocol (MCP)",
+      "categories": ["database"],
+      "capabilities": ["sqlite", "explorer", "read_only"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/hannesrudolph/sqlite-explorer-fastmcp-mcp-server.git",
+        "package": "sqlite-explorer-fastmcp-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_alchemy",
+      "description": "Universal SQLAlchemy-based database integration supporting PostgreSQL, MySQL, MariaDB, SQLite, Oracle, MS SQL Server and many more databases",
+      "categories": ["database"],
+      "capabilities": ["sqlalchemy", "postgresql", "mysql", "sqlite", "oracle", "mssql"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/runekaagaard/mcp-alchemy.git",
+        "package": "mcp-alchemy",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_jdbc",
+      "description": "Connect to any JDBC-compatible database and query, insert, update, delete, and more",
+      "categories": ["database"],
+      "capabilities": ["jdbc", "query", "insert", "update", "delete"],
+      "version": "0.1.0",
+      "install": {
+        "type": "maven",
+        "repository": "https://github.com/quarkiverse/quarkus-mcp-servers/tree/main/jdbc",
+        "package": "io.quarkiverse.mcp.jdbc",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_adx",
+      "description": "Query and analyze Azure Data Explorer databases",
+      "categories": ["database"],
+      "capabilities": ["adx", "azure", "data_explorer"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/pab1it0/adx-mcp-server.git",
+        "package": "adx-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_xiyan",
+      "description": "An MCP server that supports fetching data from a database using natural language queries, powered by XiyanSQL as the text-to-SQL LLM",
+      "categories": ["database"],
+      "capabilities": ["xiyan", "text_to_sql", "natural_language"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/XGenerationLab/xiyan_mcp_server.git",
+        "package": "xiyan_mcp_server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_dbhub",
+      "description": "Universal database MCP server supporting mainstream databases",
+      "categories": ["database"],
+      "capabilities": ["dbhub", "universal", "databases"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/bytebase/dbhub.git",
+        "package": "dbhub",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_greptimedb",
+      "description": "MCP Server for querying GreptimeDB",
+      "categories": ["database"],
+      "capabilities": ["greptimedb", "time_series", "query"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/GreptimeTeam/greptimedb-mcp-server.git",
+        "package": "greptimedb-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_vikingdb",
+      "description": "VikingDB integration with collection and index introduction, vector store and search capabilities",
+      "categories": ["database"],
+      "capabilities": ["vikingdb", "vector", "search"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/KashiwaByte/vikingdb-mcp-server.git",
+        "package": "vikingdb-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_airtable_py",
+      "description": "Connect AI tools directly to Airtable. Query, create, update, and delete records using natural language",
+      "categories": ["database"],
+      "capabilities": ["airtable", "query", "create", "update", "delete"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/rashidazarang/airtable-mcp.git",
+        "package": "airtable-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_mongo",
+      "description": "MongoDB integration that enables LLMs to interact directly with databases",
+      "categories": ["database"],
+      "capabilities": ["mongodb", "query", "database"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/QuantGeekDev/mongo-mcp.git",
+        "package": "mongo-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_mongo_server",
+      "description": "A Model Context Protocol Server for MongoDB",
+      "categories": ["database"],
+      "capabilities": ["mongodb", "query", "database"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/kiliczsh/mcp-mongo-server.git",
+        "package": "mcp-mongo-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_tinybird",
+      "description": "Tinybird integration with query and API capabilities",
+      "categories": ["database", "customer_data"],
+      "capabilities": ["tinybird", "query", "api"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/tinybirdco/mcp-tinybird.git",
+        "package": "mcp-tinybird",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_opendata",
+      "description": "Connect any Open Data to any LLM with Model Context Protocol",
+      "categories": ["customer_data"],
+      "capabilities": ["opendata", "data"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/OpenDataMCP/OpenDataMCP.git",
+        "package": "opendatamcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_unomi",
+      "description": "An MCP server to access and updates profiles on an Apache Unomi CDP server",
+      "categories": ["customer_data"],
+      "capabilities": ["unomi", "cdp", "profiles"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/sergehuber/inoyu-mcp-unomi-server.git",
+        "package": "inoyu-mcp-unomi-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_data_exploration",
+      "description": "Enables autonomous data exploration on .csv-based datasets, providing intelligent insights with minimal effort",
+      "categories": ["data_science"],
+      "capabilities": ["data", "exploration", "csv", "insights"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/reading-plus-ai/mcp-server-data-exploration.git",
+        "package": "mcp-server-data-exploration",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_playwright_plus",
+      "description": "An MCP python server using Playwright for browser automation, more suitable for llm",
+      "categories": ["browser_automation"],
+      "capabilities": ["playwright", "browser", "automation"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/blackwhite084/playwright-plus-python-mcp.git",
+        "package": "playwright-plus-python-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_playwright_server",
+      "description": "An MCP server using Playwright for browser automation and webscrapping",
+      "categories": ["browser_automation"],
+      "capabilities": ["playwright", "browser", "webscraping"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/executeautomation/mcp-playwright.git",
+        "package": "mcp-playwright",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_automata_playwright",
+      "description": "An MCP server for browser automation using Playwright",
+      "categories": ["browser_automation"],
+      "capabilities": ["playwright", "browser", "automation"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/Automata-Labs-team/MCP-Server-Playwright.git",
+        "package": "mcp-server-playwright",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_aoai_web_browsing",
+      "description": "A minimal server/client MCP implementation using Azure OpenAI and Playwright",
+      "categories": ["browser_automation"],
+      "capabilities": ["azure", "openai", "playwright"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/kimtth/mcp-aoai-web-browsing.git",
+        "package": "mcp-aoai-web-browsing",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_web_search",
+      "description": "An MCP server that enables free web searching using Google search results, with no API keys required",
+      "categories": ["browser_automation", "search"],
+      "capabilities": ["web", "search", "google"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/pskill9/web-search.git",
+        "package": "web-search",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_browser_use",
+      "description": "browser-use packaged as an MCP server with SSE transport",
+      "categories": ["browser_automation"],
+      "capabilities": ["browser", "chromium", "docker", "vnc"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/co-browser/browser-use-mcp-server.git",
+        "package": "browser-use-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_vegalite",
+      "description": "Generate visualizations from fetched data using the VegaLite format and renderer",
+      "categories": ["visualization"],
+      "capabilities": ["vegalite", "visualization", "data"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/isaacwasserman/mcp-vegalite-server.git",
+        "package": "mcp-vegalite-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_cli",
+      "description": "Command line interface with secure execution and customizable security policies",
+      "categories": ["command_line"],
+      "capabilities": ["cli", "execution", "security"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/MladenSU/cli-mcp-server.git",
+        "package": "cli-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_shell",
+      "description": "A secure shell command execution server implementing the Model Context Protocol (MCP)",
+      "categories": ["command_line"],
+      "capabilities": ["shell", "command", "execution"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/tumf/mcp-shell-server.git",
+        "package": "mcp-shell-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_text_editor",
+      "description": "A line-oriented text file editor. Optimized for LLM tools with efficient partial file access to minimize token usage",
+      "categories": ["developer_tools"],
+      "capabilities": ["text", "editor", "file"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/tumf/mcp-text-editor.git",
+        "package": "mcp-text-editor",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_simulator",
+      "description": "An MCP server to control iOS Simulators",
+      "categories": ["developer_tools"],
+      "capabilities": ["ios", "simulator", "control"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/JoshuaRileyDev/simulator-mcp-server.git",
+        "package": "simulator-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_app_store_connect",
+      "description": "An MCP server to communicate with the App Store Connect API for iOS Developers",
+      "categories": ["developer_tools"],
+      "capabilities": ["app_store", "connect", "ios"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/JoshuaRileyDev/app-store-connect-mcp-server.git",
+        "package": "app-store-connect-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_package_version",
+      "description": "An MCP Server to help LLMs suggest the latest stable package versions when writing code",
+      "categories": ["developer_tools"],
+      "capabilities": ["package", "version", "npm", "pip"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/sammcj/mcp-package-version.git",
+        "package": "mcp-package-version",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_postman",
+      "description": "Interact with Postman API",
+      "categories": ["developer_tools"],
+      "capabilities": ["postman", "api", "testing"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/delano/postman-mcp-server.git",
+        "package": "postman-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_pandoc",
+      "description": "MCP server for seamless document format conversion using Pandoc, supporting Markdown, HTML, PDF, DOCX (.docx), csv and more",
+      "categories": ["developer_tools"],
+      "capabilities": ["pandoc", "conversion", "documents"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/vivekVells/mcp-pandoc.git",
+        "package": "mcp-pandoc",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_website_downloader",
+      "description": "This MCP server provides a tool to download entire websites using wget",
+      "categories": ["developer_tools"],
+      "capabilities": ["wget", "website", "download"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/pskill9/website-downloader.git",
+        "package": "website-downloader",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_multiverse",
+      "description": "A middleware server that enables multiple isolated instances of the same MCP servers to coexist independently with unique namespaces and configurations",
+      "categories": ["developer_tools"],
+      "capabilities": ["middleware", "namespaces", "configurations"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/lamemind/mcp-server-multiverse.git",
+        "package": "mcp-server-multiverse",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_sql_analyzer",
+      "description": "MCP server that provides SQL analysis, linting, and dialect conversion using SQLGlot",
+      "categories": ["developer_tools"],
+      "capabilities": ["sql", "analysis", "linting", "dialect"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/j4c0bs/mcp-server-sql-analyzer.git",
+        "package": "mcp-server-sql-analyzer",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_excel",
+      "description": "An Excel manipulation server providing workbook creation, data operations, formatting, and advanced features",
+      "categories": ["developer_tools"],
+      "capabilities": ["excel", "workbook", "data", "formatting"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/haris-musa/excel-mcp-server.git",
+        "package": "excel-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_xcodebuild",
+      "description": "Build iOS Xcode workspace/project and feed back errors to llm",
+      "categories": ["developer_tools"],
+      "capabilities": ["xcode", "build", "ios", "errors"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/ShenghaiWang/xcodebuild.git",
+        "package": "xcodebuild",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_claude_debugs",
+      "description": "An MCP Server and VS Code Extension which enables (language agnostic) automatic debugging via breakpoints and expression evaluation",
+      "categories": ["developer_tools"],
+      "capabilities": ["debug", "vscode", "breakpoints"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/jasonjmcghee/claude-debugs-for-you.git",
+        "package": "claude-debugs-for-you",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_servemyapi",
+      "description": "A personal MCP server for securely storing and accessing API keys across projects using the macOS Keychain",
+      "categories": ["developer_tools"],
+      "capabilities": ["api_keys", "keychain", "macos"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/Jktfe/serveMyAPI.git",
+        "package": "servemyapi",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_jvm",
+      "description": "An implementation project of a JVM-based MCP server",
+      "categories": ["developer_tools"],
+      "capabilities": ["jvm", "java"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/xzq-xu/jvm-mcp-server.git",
+        "package": "jvm-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_airflow",
+      "description": "MCP server that connects to Apache Airflow using official client",
+      "categories": ["developer_tools"],
+      "capabilities": ["airflow", "workflow", "orchestration"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/yangkyeongmo/mcp-server-apache-airflow.git",
+        "package": "mcp-server-apache-airflow",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_openapi",
+      "description": "Connect any HTTP/REST API server using an Open API spec (v3)",
+      "categories": ["developer_tools"],
+      "capabilities": ["openapi", "rest", "api"],
+      "version": "0.1.0",
+      "install": {
+        "type": "go",
+        "repository": "https://github.com/snaggle-ai/openapi-mcp-server.git",
+        "package": "openapi-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_git_ingest",
+      "description": "Read and analyze GitHub repositories with your LLM",
+      "categories": ["version_control"],
+      "capabilities": ["git", "github", "repositories", "analysis"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/adhikasp/mcp-git-ingest.git",
+        "package": "mcp-git-ingest",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_obsidian",
+      "description": "Interacting with Obsidian via REST API",
+      "categories": ["productivity"],
+      "capabilities": ["obsidian", "rest", "notes"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/MarkusPfundstein/mcp-obsidian.git",
+        "package": "mcp-obsidian",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_obsidian_connector",
+      "description": "This is a connector to allow Claude Desktop to read and search any directory containing Markdown notes",
+      "categories": ["productivity"],
+      "capabilities": ["obsidian", "markdown", "search", "notes"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/calclavia/mcp-obsidian.git",
+        "package": "mcp-obsidian",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_notion_todo",
+      "description": "Integrates with Notion's API to manage personal todo lists",
+      "categories": ["productivity"],
+      "capabilities": ["notion", "todo", "tasks"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/danhilse/notion_mcp.git",
+        "package": "notion_mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_wcgw",
+      "description": "Autonomous shell execution, computer control and coding agent",
+      "categories": ["developer_tools"],
+      "capabilities": ["shell", "control", "coding", "macos"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/rusiaaman/wcgw.git",
+        "package": "wcgw",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_ancestry",
+      "description": "Allows the AI to read .ged files and genetic data",
+      "categories": ["knowledge"],
+      "capabilities": ["genealogy", "genetic", "ancestry"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/reeeeemo/ancestry-mcp.git",
+        "package": "ancestry-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_apple_notes",
+      "description": "Allows the AI to read from your local Apple Notes database (macOS only)",
+      "categories": ["productivity"],
+      "capabilities": ["apple", "notes", "macos"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/sirmews/apple-notes-mcp.git",
+        "package": "apple-notes-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_unichat",
+      "description": "Send requests to OpenAI, MistralAI, Anthropic, xAI, Google AI or DeepSeek using MCP protocol via tool or predefined prompts",
+      "categories": ["ai_tools"],
+      "capabilities": ["openai", "mistral", "anthropic", "xai", "google", "deepseek"],
+      "version": "0.1.0",
+      "install": {
+        "type": "mixed",
+        "repository": "https://github.com/amidabuddha/unichat-mcp-server.git",
+        "package": "unichat-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_miro",
+      "description": "Access MIRO whiteboards, bulk create and read items. Requires OAUTH key for REST API",
+      "categories": ["productivity"],
+      "capabilities": ["miro", "whiteboard", "collaboration"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/evalstate/mcp-miro.git",
+        "package": "mcp-miro",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_atlassian",
+      "description": "MCP server for Atlassian products (Confluence and Jira)",
+      "categories": ["productivity"],
+      "capabilities": ["atlassian", "confluence", "jira"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/sooperset/mcp-atlassian.git",
+        "package": "mcp-atlassian",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_any_chat_completions",
+      "description": "Chat with any other OpenAI SDK Compatible Chat Completions API, like Perplexity, Groq, xAI and more",
+      "categories": ["ai_tools"],
+      "capabilities": ["chat", "completions", "perplexity", "groq", "xai"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/pyroprompts/any-chat-completions-mcp.git",
+        "package": "any-chat-completions-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_installer",
+      "description": "An MCP server that installs other MCP servers for you",
+      "categories": ["utility"],
+      "capabilities": ["installer", "servers", "mcp"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/anaisbetts/mcp-installer.git",
+        "package": "mcp-installer",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_wikimedia",
+      "description": "Wikipedia Article lookup API",
+      "categories": ["knowledge"],
+      "capabilities": ["wikipedia", "articles", "lookup"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://gitlab.wikimedia.org/repos/future-audiences/wikimedia-enterprise-model-context-protocol",
+        "package": "wikimedia-enterprise-model-context-protocol",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_simple_timeserver",
+      "description": "An MCP server that allows checking local time on the client machine or current UTC time from an NTP server",
+      "categories": ["utility"],
+      "capabilities": ["time", "local", "utc", "ntp"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/andybrandt/mcp-simple-timeserver.git",
+        "package": "mcp-simple-timeserver",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_simple_openai_assistant",
+      "description": "MCP to talk to OpenAI assistants (Claude can use any GPT model as his assitant)",
+      "categories": ["ai_tools"],
+      "capabilities": ["openai", "assistant", "gpt"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/andybrandt/mcp-simple-openai-assistant.git",
+        "package": "mcp-simple-openai-assistant",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_hfspace",
+      "description": "Use HuggingFace Spaces directly from Claude. Use Open Source Image Generation, Chat, Vision tasks and more",
+      "categories": ["ai_tools"],
+      "capabilities": ["huggingface", "spaces", "image", "vision"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/evalstate/mcp-hfspace.git",
+        "package": "mcp-hfspace",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_jfx",
+      "description": "Draw on JavaFX canvas",
+      "categories": ["visualization"],
+      "capabilities": ["javafx", "canvas", "drawing"],
+      "version": "0.1.0",
+      "install": {
+        "type": "maven",
+        "repository": "https://github.com/quarkiverse/quarkus-mcp-servers/tree/main/jfx",
+        "package": "io.quarkiverse.mcp.jfx",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_ws",
+      "description": "Wrap MCP servers with a WebSocket",
+      "categories": ["utility"],
+      "capabilities": ["websocket", "wrapper", "kibitz"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/nick1udwig/ws-mcp.git",
+        "package": "ws-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_rember",
+      "description": "Create spaced repetition flashcards in Rember to remember anything you learn in your chats",
+      "categories": ["knowledge"],
+      "capabilities": ["flashcards", "spaced_repetition", "rember"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/rember/rember-mcp.git",
+        "package": "rember-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_raindrop",
+      "description": "An integration that allows LLMs to interact with Raindrop.io bookmarks using the Model Context Protocol (MCP)",
+      "categories": ["productivity"],
+      "capabilities": ["raindrop", "bookmarks"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/hiromitsusasaki/raindrop-io-mcp-server.git",
+        "package": "raindrop-io-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_omniparser_autogui",
+      "description": "Automatic operation of on-screen GUI",
+      "categories": ["utility"],
+      "capabilities": ["gui", "automation", "screen"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/NON906/omniparser-autogui-mcp.git",
+        "package": "omniparser-autogui-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_kibela",
+      "description": "Allows AI models to interact with Kibela",
+      "categories": ["productivity"],
+      "capabilities": ["kibela", "knowledge", "collaboration"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/kj455/mcp-kibela.git",
+        "package": "mcp-kibela",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_bear",
+      "description": "Allows the AI to read from your Bear Notes (macOS only)",
+      "categories": ["productivity"],
+      "capabilities": ["bear", "notes", "macos"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/akseyh/bear-mcp-server.git",
+        "package": "bear-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_mac_messages",
+      "description": "An MCP server that securely interfaces with your iMessage database via the Model Context Protocol (MCP)",
+      "categories": ["communication"],
+      "capabilities": ["imessage", "messages", "macos"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/carterlasalle/mac_messages_mcp.git",
+        "package": "mac_messages_mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_inbox_zero",
+      "description": "An MCP server for Inbox Zero. Adds functionality on top of Gmail like finding out which emails you need to reply to or need to follow up on",
+      "categories": ["communication"],
+      "capabilities": ["gmail", "inbox", "zero", "email"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/elie222/inbox-zero.git",
+        "package": "inbox-zero",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_wecombot",
+      "description": "An MCP server application that sends various types of messages to the WeCom group robot",
+      "categories": ["communication"],
+      "capabilities": ["wecom", "message", "robot"],
+      "version": "0.1.0",
+      "install": {
+        "type": "go",
+        "repository": "https://github.com/gotoolkits/mcp-wecombot-server.git",
+        "package": "mcp-wecombot-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_bluesky",
+      "description": "Bluesky instance integration for querying and interaction",
+      "categories": ["communication"],
+      "capabilities": ["bluesky", "social", "interaction"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/keturiosakys/bluesky-context-server.git",
+        "package": "bluesky-context-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_mac_apps_launcher",
+      "description": "An MCP server to list and launch applications on MacOS",
+      "categories": ["utility"],
+      "capabilities": ["macos", "launch", "applications"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/JoshuaRileyDev/mac-apps-launcher.git",
+        "package": "mac-apps-launcher",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_difyworkflow",
+      "description": "Tools to the query and execute of Dify workflows",
+      "categories": ["workflow"],
+      "capabilities": ["dify", "workflow", "execute"],
+      "version": "0.1.0",
+      "install": {
+        "type": "go",
+        "repository": "https://github.com/gotoolkits/mcp-difyworkflow-server.git",
+        "package": "mcp-difyworkflow-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_hn_server",
+      "description": "Parses the HTML content from news.ycombinator.com (Hacker News) and provides structured data for different types of stories",
+      "categories": ["search"],
+      "capabilities": ["hacker_news", "stories", "parse"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/pskill9/hn-server.git",
+        "package": "hn-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_all_in_one",
+      "description": "Some useful tools for developer, almost everything an engineer need",
+      "categories": ["developer_tools"],
+      "capabilities": ["confluence", "jira", "youtube", "script", "rag", "fetch", "gitlab"],
+      "version": "0.1.0",
+      "install": {
+        "type": "go",
+        "repository": "https://github.com/nguyenvanduocit/all-in-one-model-context-protocol.git",
+        "package": "all-in-one-model-context-protocol",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_piapi",
+      "description": "PiAPI MCP server makes user able to generate media content with Midjourney/Flux/Kling/Hunyuan/Udio/Trellis directly",
+      "categories": ["ai_tools"],
+      "capabilities": ["media", "midjourney", "flux", "kling", "hunyuan", "udio", "trellis"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/apinetwork/piapi-mcp-server.git",
+        "package": "piapi-mcp-server",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_magic",
+      "description": "Create crafted UI components inspired by the best 21st.dev design engineers",
+      "categories": ["developer_tools"],
+      "capabilities": ["ui", "components", "design"],
+      "version": "0.1.0",
+      "install": {
+        "type": "npm",
+        "repository": "https://github.com/21st-dev/magic-mcp.git",
+        "package": "magic-mcp",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_chronulus",
+      "description": "Predict anything with Chronulus AI forecasting and prediction agents",
+      "categories": ["data_science"],
+      "capabilities": ["forecasting", "prediction", "chronulus"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "https://github.com/ChronulusAI/chronulus-mcp.git",
+        "package": "chronulus-mcp",
+        "global": true
       }
     }
   ]
-} 
+}

@@ -22,18 +22,27 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 # Parse requirements while handling comments and separating git dependencies
-requirements = []
+requirements = [
+    "aiohttp>=3.8.0",
+    "anthropic>=0.15.0",
+]
+
 dependency_links = []
 
-with open("requirements.txt", "r", encoding="utf-8") as f:
-    for line in f:
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        if line.startswith("git+"):
-            dependency_links.append(line)
-        else:
-            requirements.append(line)
+# Try to read from requirements.txt if it exists
+try:
+    with open("requirements.txt", "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if line.startswith("git+"):
+                dependency_links.append(line)
+            elif not line.startswith("git+") and "=" in line:
+                requirements.append(line)
+except FileNotFoundError:
+    # If requirements.txt doesn't exist, continue with the default requirements
+    pass
 
 setup(
     name="state_of_mika",

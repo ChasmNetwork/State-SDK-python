@@ -40,16 +40,22 @@ class Connector:
     
     def __init__(self, 
                 registry: Optional[Registry] = None,
-                installer: Optional[Installer] = None):
+                installer: Optional[Installer] = None,
+                auto_install: Optional[bool] = None):
         """
         Initialize the Connector.
         
         Args:
             registry: Registry for MCP servers (created if None)
             installer: Installer for MCP servers (created if None)
+            auto_install: Whether to automatically install servers when needed (if None, will use AUTO_INSTALL_SERVERS env var)
         """
         self.registry = registry or Registry()
         self.installer = installer or Installer(self.registry)
+        
+        # Set auto_install attribute if provided
+        if auto_install is not None:
+            self.auto_install = auto_install
         
         # Dictionary to store active connections
         self.connections: Dict[str, Any] = {}
@@ -115,6 +121,27 @@ class Connector:
             if server_name in self.connections:
                 logger.info(f"Using existing connection to {server_name}")
                 return server_name, self.connections[server_name]
+            
+            # Check if server is installed
+            if not self.registry.is_server_installed(server_name):
+                # Check if auto-install is enabled - support both environment variable and class attribute
+                auto_install = (
+                    os.environ.get("AUTO_INSTALL_SERVERS", "").lower() == "true" or 
+                    getattr(self, "auto_install", False)
+                )
+                
+                logger.debug(f"Auto-install for servers is: {auto_install}")
+                
+                if auto_install:
+                    logger.info(f"Auto-installing server for capability: {capability}")
+                    installed = await self.installer.install_server(server_data)
+                    
+                    if not installed:
+                        logger.error(f"Failed to install server {server_name}")
+                        continue
+                else:
+                    logger.warning(f"Server '{server_name}' is not installed and auto-install is disabled")
+                    continue
             
             # Try to connect to this server
             try:
@@ -480,8 +507,13 @@ class Connector:
         
         # Check if server is installed
         if not self.registry.is_server_installed(server_name):
-            # Check if auto-install is enabled
-            auto_install = os.environ.get("AUTO_INSTALL_SERVERS", "").lower() == "true"
+            # Check if auto-install is enabled - support both environment variable and class attribute
+            auto_install = (
+                os.environ.get("AUTO_INSTALL_SERVERS", "").lower() == "true" or 
+                getattr(self, "auto_install", False)
+            )
+            
+            logger.debug(f"Auto-install for servers is: {auto_install}")
             
             if auto_install:
                 logger.info(f"Auto-installing server for capability: {capability}")
@@ -596,8 +628,14 @@ class Connector:
                 # Build list of available servers
                 available_servers = [s.get("name") for s in matching_servers]
                 
-                # Check auto_install setting
-                auto_install = os.environ.get("AUTO_INSTALL_SERVERS", "").lower() == "true"
+                # Check auto_install setting - use both env var and class attribute
+                auto_install = (
+                    os.environ.get("AUTO_INSTALL_SERVERS", "").lower() == "true" or 
+                    getattr(self, "auto_install", False)
+                )
+                
+                logger.debug(f"Auto-install for servers is: {auto_install}")
+                
                 suggestion = f"Consider installing a server for the '{capability}' capability."
                 if not auto_install and available_servers:
                     suggestion += " To auto-install servers, set AUTO_INSTALL_SERVERS=true in your environment variables."

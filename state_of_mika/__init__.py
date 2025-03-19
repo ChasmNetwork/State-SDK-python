@@ -8,7 +8,7 @@ This package provides an AI-powered system for:
 4. Returning structured responses or helpful error suggestions
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.2"
 
 # Expose the main classes
 from .connector import Connector
