@@ -4,7 +4,7 @@ End-to-end test for State of Mika SDK with detailed logging
 
 This test file runs a real-world test of:
 1. Receiving a query from a user
-2. Claude interpreting the natural language request
+2. Natural language request interpretation
 3. Finding the appropriate server by capability
 4. Installing the server if needed
 5. Connecting to the server
@@ -52,7 +52,7 @@ try:
     from state_of_mika import Connector
     from state_of_mika.registry import Registry
     from state_of_mika.installer import Installer
-    from state_of_mika.adapters.claude import ClaudeAdapter
+    from state_of_mika.mika_adapter import MikaAdapter
 except ImportError as e:
     logging.error(f"Error importing State of Mika modules: {e}")
     sys.exit(1)
@@ -60,7 +60,7 @@ except ImportError as e:
 # Enable auto-installation of servers
 os.environ["AUTO_INSTALL_SERVERS"] = "true"
 
-# Check if anthropic module is available
+# Check if required modules are available
 try:
     import anthropic
     HAS_ANTHROPIC = True
@@ -69,9 +69,9 @@ except ImportError:
     logging.error("Anthropic library not installed. This is required for real tests.")
     sys.exit(1)
 
-# Create a mock ClaudeAdapter for testing
-class MockClaudeAdapter:
-    """A mock Claude adapter for testing that doesn't require an API key."""
+# Create a mock adapter for testing
+class MockMikaAdapter:
+    """A mock adapter for testing that doesn't require an API key."""
     
     def __init__(self, connector=None):
         """Initialize the mock adapter."""
@@ -80,7 +80,7 @@ class MockClaudeAdapter:
     async def setup(self):
         """No setup needed for the mock adapter."""
         logger = logging.getLogger('mock')
-        logger.info("MockClaudeAdapter initialized in testing mode")
+        logger.info("MockMikaAdapter initialized in testing mode")
         
     async def process_request(self, request):
         """Process a request but return errors to simulate real-world conditions.
@@ -170,11 +170,11 @@ async def process_llm_request(request):
             await registry.update()
             
             # Step 3: Create and set up the adapter
-            # Use MockClaudeAdapter when USE_MOCK_DATA is set
+            # Use mock adapter when USE_MOCK_DATA is set
             if os.environ.get("USE_MOCK_DATA") == "true":
-                adapter = MockClaudeAdapter(connector)
+                adapter = MockMikaAdapter(connector)
             else:
-                adapter = ClaudeAdapter(connector=connector)
+                adapter = MikaAdapter(connector=connector)
                 
             await adapter.setup()
             
@@ -244,7 +244,7 @@ async def run_tests():
         
         print("-" * 50)
         
-        print("\n==== End-to-End Tests Completed ====\n")
+    print("\n==== End-to-End Tests Completed ====\n")
 
 if __name__ == "__main__":
     asyncio.run(run_tests()) 

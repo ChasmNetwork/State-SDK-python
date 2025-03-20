@@ -1,152 +1,233 @@
 # MCP Integration in State of Mika SDK
 
-This document explains how the State of Mika SDK integrates with the Model Context Protocol (MCP) ecosystem to connect Language Models (like Claude) with MCP servers.
+This document explains how the State of Mika SDK integrates with the Model Context Protocol (MCP) to provide a flexible and extensible framework for connecting large language models with capability servers.
 
 ## Overview
 
-The Model Context Protocol (MCP) is an open protocol that enables LLMs to access external tools and data in a standardized way. The State of Mika SDK serves as a bridge between LLMs and MCP servers, handling:
+The Model Context Protocol (MCP) is a standardized protocol for communication between large language models (LLMs) and capability servers. It defines:
 
-1. Discovery of MCP servers based on capabilities
-2. Installation of servers when needed
-3. Connection management
-4. Tool execution and response formatting
+1. How LLMs and servers communicate
+2. How capabilities and tools are discovered
+3. How parameters are passed and validated
+4. How results are returned
 
-## Integration Architecture
+The State of Mika SDK provides a complete framework for:
+
+- Discovering MCP servers for specific capabilities
+- Managing server installations and dependencies
+- Establishing connections with servers
+- Executing tools with proper parameter handling
+- Processing and validating results
+- Providing structured error information when things go wrong
+
+## Architecture
+
+The SDK is built on a modular architecture with these key components:
 
 ```
-┌─────────────┐         ┌───────────────┐         ┌─────────────┐
-│             │         │               │         │             │
-│    LLM      │ ◄─────► │  State of     │ ◄─────► │  MCP        │
-│  (Claude)   │         │  Mika SDK     │         │  Servers    │
-│             │         │               │         │             │
-└─────────────┘         └───────────────┘         └─────────────┘
+SoMAgent
+   ├── Registry (server discovery and metadata)
+   ├── Installer (server installation)
+   ├── Connector (server communication)
+   └── MikaAdapter (request/error analysis)
 ```
 
-## Key Integration Components
+Each component handles a specific part of the MCP integration process:
 
-### 1. Connector
+1. **Registry**: Maintains a catalog of available MCP servers and their capabilities
+2. **Installer**: Handles the installation and updating of MCP servers
+3. **Connector**: Manages connections to MCP servers and executes tools
+4. **MikaAdapter**: Analyzes natural language requests and determines which capabilities are needed
 
-The `Connector` class is the core of our MCP integration:
+## Natural Language to MCP Workflow
 
-- Uses `AsyncExitStack` for proper lifecycle management of server connections
-- Implements context managers for safe resource handling
-- Handles server discovery, installation, and connection
-- Provides clean interfaces for tool execution
-- Manages multiple simultaneous connections to different servers
+The MikaAdapter provides a bridge between Claude and MCP servers:
 
-```python
-# Example using the connector context manager
-async with connector.connect_session("weather") as (server_name, client):
-    result = await client.call_tool("get_weather", {"location": "Paris"})
-```
+1. **Input**: User submits a natural language request (e.g., "What's the weather in Paris?")
+2. **Analysis**: MikaAdapter analyzes the request to determine the required capability and parameters
+3. **Server Discovery**: Registry identifies the appropriate server for the capability
+4. **Connection**: Connector establishes a connection to the server
+5. **Tool Execution**: Connector executes the appropriate tool with the extracted parameters
+6. **Results**: Results are returned in a structured format for the calling application
 
-### 2. Claude Adapter
+## Dynamic Tool Discovery
 
-The `ClaudeAdapter` provides a bridge between Claude and MCP servers:
+MCP servers advertise their capabilities and available tools, allowing the SDK to dynamically discover and use them without prior knowledge.
 
-- Interprets natural language requests to extract capabilities, tools and parameters
-- Connects to appropriate MCP servers via the Connector
-- Executes tools and formats responses
-- Maintains conversation history
-- Supports multimodal interactions with image processing
+The Registry maintains information about:
 
-```python
-# Example using the Claude adapter
-adapter = ClaudeAdapter()
-await adapter.setup()
-response = await adapter.process_request("What's the weather in Paris?")
-```
-
-### 3. Registry
-
-The `Registry` component manages information about available MCP servers:
-
-- Maintains a database of server capabilities
-- Provides search functionality to find servers by capability
-- Tracks installation status of servers
-
-### 4. Installer
-
-The `Installer` component handles the installation of MCP servers:
-
-- Supports different installation methods (pip, npm, etc.)
-- Handles dependencies
-- Manages server versioning
-
-## MCP Client Usage
-
-Our SDK leverages the official MCP Python SDK's client capabilities:
-
-```python
-# We use the MCP SDK's ClientSession for server interaction
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
-
-# Create server parameters
-server_params = StdioServerParameters(
-    command="python",
-    args=["-m", "server_name"],
-    env={}
-)
-
-# Connect to server
-async with stdio_client(server_params) as (read, write):
-    async with ClientSession(read, write) as session:
-        # Use the session to interact with the server
-        await session.initialize()
-        tools = await session.list_tools()
-        result = await session.call_tool("tool_name", {"param": "value"})
-```
-
-## Multimodal Support
-
-Our MCP integration includes support for multimodal interactions:
-
-- Image processing capabilities
-- Structured responses with mixed media types
-- Support for returning images from tools
-
-## Best Practices
-
-When using our MCP integration:
-
-1. **Resource Management**: Always use context managers or ensure proper cleanup with `disconnect_all()`
-2. **Error Handling**: Implement appropriate try/except blocks around tool executions
-3. **Capability Discovery**: Use capability-based server discovery rather than hardcoding server names
-4. **Conversation History**: Leverage the chat history functionality for more coherent interactions
+- Available servers by capability
+- Installation methods for each server
+- Schema information for tool parameters
+- Version information and compatibility
 
 ## Example Usage
 
-Here's a complete example of using our MCP integration with Claude:
+### Basic Example
 
 ```python
-from state_of_mika.adapters.claude import ClaudeAdapter
+import asyncio
+from state_of_mika import SoMAgent
 
-async def get_weather(location: str):
-    # Create the adapter
-    adapter = ClaudeAdapter()
-    
-    # Set up the adapter
-    await adapter.setup()
+async def main():
+    # Initialize the agent
+    agent = SoMAgent(auto_install=True)
+    await agent.setup()
     
     try:
         # Process a natural language request
-        response = await adapter.process_request(f"What's the weather like in {location}?")
+        result = await agent.process_request("What's the weather in Paris?")
         
-        if response["success"]:
-            return response["result"]
+        # Check if successful
+        if result.get("status") == "success":
+            print(f"Weather data: {result.get('result')}")
         else:
-            return f"Error: {response.get('error', 'Unknown error')}"
+            print(f"Error: {result.get('error')}")
     finally:
         # Clean up resources
-        await adapter.connector.disconnect_all()
+        await agent.aclose()
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
-## Future Enhancements
+### Direct Capability Access
 
-We continue to enhance our MCP integration with:
+```python
+import asyncio
+from state_of_mika import Connector
 
-1. **Subscription Support**: Better handling of resource subscriptions
-2. **Event Support**: Improved handling of MCP server events
-3. **Prompts**: Support for MCP prompt capabilities
-4. **Parallel Tool Execution**: Execute multiple tools simultaneously when appropriate 
+async def direct_capability():
+    # Create a connector
+    connector = Connector(auto_install=True)
+    await connector.setup()
+    
+    try:
+        # Execute a specific capability directly
+        result = await connector.execute_capability(
+            capability="weather",
+            tool_name="get_hourly_weather",
+            parameters={"location": "Paris"}
+        )
+        
+        print("Weather data:", result)
+    finally:
+        # Clean up resources
+        await connector.aclose()
+
+if __name__ == "__main__":
+    asyncio.run(direct_capability())
+```
+
+### Using the MikaAdapter for Request Analysis
+
+When you need more control over the analysis process:
+
+```python
+import asyncio
+from state_of_mika.mika_adapter import MikaAdapter
+from state_of_mika import Connector
+
+async def analyze_and_execute():
+    # Create the adapter
+    adapter = MikaAdapter()
+    
+    # Load server configurations
+    await adapter.load_server_configs()
+    
+    # Create a connector
+    connector = Connector(auto_install=True)
+    await connector.setup()
+    
+    try:
+        # Analyze the request
+        request_analysis = await adapter.analyze_request(
+            "What's the weather like in Tokyo today?"
+        )
+        
+        # Extract information from the analysis
+        capability = request_analysis.get("capability")
+        tool_name = request_analysis.get("tool_name")
+        parameters = request_analysis.get("parameters", {})
+        
+        print(f"Capability: {capability}")
+        print(f"Tool: {tool_name}")
+        print(f"Parameters: {parameters}")
+        
+        # Execute the capability
+        result = await connector.execute_capability(
+            capability=capability,
+            tool_name=tool_name,
+            parameters=parameters
+        )
+        
+        print("Result:", result)
+    finally:
+        # Clean up
+        await connector.aclose()
+
+if __name__ == "__main__":
+    asyncio.run(analyze_and_execute())
+```
+
+## Error Handling
+
+The SDK provides comprehensive error handling with structured error information:
+
+```python
+try:
+    result = await agent.process_request("What's the weather in Mars?")
+    
+    if result.get("status") != "success":
+        error_type = result.get("error_type")
+        suggestion = result.get("suggestion")
+        
+        print(f"Error type: {error_type}")
+        print(f"Suggestion: {suggestion}")
+        
+        if result.get("requires_user_action"):
+            print("This error requires user action to resolve.")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+```
+
+## Advanced Use Cases
+
+### Custom Error Analysis
+
+```python
+# Get an error from a failed operation
+error_result = await connector.execute_capability(
+    capability="weather",
+    tool_name="get_hourly_weather",
+    parameters={"location": "Invalid Location"}
+)
+
+# Use the MikaAdapter to analyze the error
+error_analysis = await adapter.analyze_error(
+    error=error_result,
+    original_request="What's the weather in Invalid Location?",
+    context={"capability": "weather"}
+)
+
+print(f"Error type: {error_analysis.get('error_type')}")
+print(f"Explanation: {error_analysis.get('explanation')}")
+print(f"Suggestion: {error_analysis.get('suggestion')}")
+```
+
+### Server Status Checking
+
+```python
+# Check if specific servers are installed and available
+weather_status = await connector.check_server_status("weather")
+search_status = await connector.check_server_status("search")
+
+print(f"Weather server installed: {weather_status.get('installed')}")
+print(f"Weather server available: {weather_status.get('available')}")
+print(f"Search server installed: {search_status.get('installed')}")
+print(f"Search server available: {search_status.get('available')}")
+```
+
+## Conclusion
+
+The State of Mika SDK provides a comprehensive framework for integrating MCP servers with application code, handling the complexities of server discovery, installation, connection management, and error handling. 

@@ -156,92 +156,67 @@ class Connector:
     
     async def connect_to_server(self, server_name: str) -> 'ClientSession':
         """
-        Connect to a server by name
+        Connect to an MCP server.
         
         Args:
             server_name: Name of the server to connect to
             
         Returns:
-            ClientSession object for interacting with the server
+            ClientSession for the connected server
+            
+        Raises:
+            ValueError: If the server is not found in the registry
+            RuntimeError: If the server cannot be launched
         """
-        # First, make sure we have the MCP package imported
-        global HAS_MCP
-        
-        # Import MCP modules here in the function scope
-        try:
-            import mcp
-            from mcp import ClientSession, StdioServerParameters
-            from mcp.client.stdio import stdio_client
-            HAS_MCP = True
-        except ImportError:
-            # Need to install the MCP package
-            logger.info("Installing MCP package...")
-            await self.installer.install_server({
-                "name": "mcp",
-                "installation": {'type': 'pip', 'package': 'mcp'}
-            })
-            
-            # Try to import again after installation
-            try:
-                import mcp
-                from mcp import ClientSession, StdioServerParameters
-                from mcp.client.stdio import stdio_client
-                HAS_MCP = True
-            except ImportError:
-                raise RuntimeError("Failed to install MCP package")
-        
-        # Get server data
-        server_data = self.registry.get_server_by_name(server_name)
-        
-        if not server_data:
-            raise ValueError(f"Server not found in registry: {server_name}")
-        
-        # Check if already connected
         if server_name in self.connections:
+            logger.info(f"Already connected to server: {server_name}")
             return self.connections[server_name]
-            
-        # Check if the server is installed
-        installed = self.registry.is_server_installed(server_name)
         
-        if not installed:
-            # Need to install the server
-            logger.info(f"Installing server: {server_name}")
-            
-            # Get installation information from server data
-            installation_info = server_data.get('installation', {})
-            
-            # Install the server
-            server_install_data = {
-                "name": server_name,
-                "installation": installation_info
-            }
-            success = await self.installer.install_server(server_install_data)
-            if not success:
-                raise RuntimeError(f"Failed to install server: {server_name}")
+        # Get server data from registry
+        server_data = self.registry.get_server_by_name(server_name)
+        if not server_data:
+            raise ValueError(f"Server '{server_name}' not found in registry")
         
-        # Now start and connect to the server
-        try:
-            # Get the command and args to start the server
-            command, args, env = self._get_server_launch_info(server_name, server_data)
-            
-            # Get installation type for potential fallback
-            installation_info = server_data.get('installation', {})
-            install_type = installation_info.get('type', 'pip')
-            
-            # Create server parameters
-            server_params = StdioServerParameters(
-                command=command,
-                args=args,
-                env=env
+        # Check if server is installed
+        if not self.registry.is_server_installed(server_name):
+            # Check if auto-install is enabled
+            auto_install = (
+                os.environ.get("AUTO_INSTALL_SERVERS", "").lower() == "true" or 
+                getattr(self, "auto_install", False)
             )
             
-            logger.info(f"Starting server: {server_name} with command: {command} {' '.join(args)}")
+            if not auto_install:
+                raise ValueError(f"Server '{server_name}' is not installed and auto-install is disabled")
             
-            # Create the client session using the MCP client SDK
-            # Add it to our exit stack for proper cleanup
+            # Install the server
+            logger.info(f"Auto-installing server: {server_name}")
+            installed = await self.installer.install_server(server_data)
+            
+            if not installed:
+                raise RuntimeError(f"Failed to install server: {server_name}")
+        
+        try:
+            # Get the command, args, and environment to launch the server
+            command, args, env = self._get_server_launch_info(server_name, server_data)
+            logger.info(f"Launching server: {server_name} with command: {command} {' '.join(args)}")
+            
+            # Get installation information to determine installation type
+            installation_info = server_data.get('installation', {})
+            install_info = server_data.get('install', {})
+            install_type = installation_info.get('type') or install_info.get('type', 'pip')
+            
+            # Try to start the server
             try:
+                # Create server parameters
+                params = StdioServerParameters(
+                    command=command,
+                    args=args,
+                    env=env
+                )
+                
+                # Connect to the server
                 read_stream, write_stream = await self.exit_stack.enter_async_context(
-                    stdio_client(server_params)
+                    stdio_client(params)
                 )
                 
                 session = await self.exit_stack.enter_async_context(
@@ -276,6 +251,31 @@ class Connector:
                         f"        {server_name}.start(); "
                         f"    else: "
                         f"        sys.exit('Cannot find entry point for {server_name}'); "
+                        f"except ModuleNotFoundError as e: "
+                        f"    missing_module = str(e).split(\"'\")"
+                        f"    if len(missing_module) >= 2: "
+                        f"        missing_dep = missing_module[1] "
+                        f"        print(f'Missing dependency: {{missing_dep}}. Attempting auto-installation...') "
+                        f"        import subprocess "
+                        f"        try: "
+                        f"            subprocess.check_call([sys.executable, '-m', 'pip', 'install', missing_dep]) "
+                        f"            print(f'Successfully installed {{missing_dep}}') "
+                        f"            # Try again with the dependency installed "
+                        f"            import importlib "
+                        f"            importlib.invalidate_caches() "
+                        f"            import {server_name} "
+                        f"            if hasattr({server_name}, 'run_server'): "
+                        f"                {server_name}.run_server() "
+                        f"            elif hasattr({server_name}, 'main'): "
+                        f"                {server_name}.main() "
+                        f"            elif hasattr({server_name}, 'start'): "
+                        f"                {server_name}.start() "
+                        f"            else: "
+                        f"                sys.exit('Cannot find entry point for {server_name}') "
+                        f"        except Exception as dep_e: "
+                        f"            sys.exit(f'Failed to install missing dependency {{missing_dep}}: {{dep_e}}') "
+                        f"    else: "
+                        f"        sys.exit(f'Error starting {server_name}: {{e}}'); "
                         f"except Exception as e: "
                         f"    sys.exit(f'Error starting {server_name}: {{e}}'); "
                     )
@@ -287,7 +287,7 @@ class Connector:
                     )
                     
                     try:
-                        logger.info(f"Trying fallback launch method: python -c '{script}'")
+                        logger.info(f"Trying fallback launch method with auto dependency installation")
                         read_stream, write_stream = await self.exit_stack.enter_async_context(
                             stdio_client(fallback_params)
                         )
@@ -302,11 +302,62 @@ class Connector:
                         # Store the connection
                         self.connections[server_name] = session
                         
-                        logger.info(f"Connected to server using fallback method: {server_name}")
+                        logger.info(f"Connected to server using fallback method with auto dependency installation: {server_name}")
                         return session
                     except Exception as fallback_error:
                         logger.error(f"Fallback launch also failed: {fallback_error}")
-                        raise RuntimeError(f"Could not launch server {server_name} using any method")
+                        
+                        # Try one more approach - install the main package with pip --verbose to capture dependencies
+                        try:
+                            logger.info(f"Attempting to reinstall {server_name} with pip --verbose to resolve dependencies")
+                            
+                            # Get package name from install info
+                            package = (installation_info.get('package') or 
+                                       install_info.get('package') or 
+                                       server_name)
+                            
+                            # Run pip install with --verbose to see what's happening
+                            pip_process = await asyncio.create_subprocess_exec(
+                                sys.executable, "-m", "pip", "install", "--verbose", "--force-reinstall", package,
+                                stdout=asyncio.subprocess.PIPE,
+                                stderr=asyncio.subprocess.PIPE
+                            )
+                            stdout, stderr = await pip_process.communicate()
+                            
+                            # Log the output for debugging
+                            logger.debug(f"Pip install output: {stdout.decode()}")
+                            logger.debug(f"Pip install errors: {stderr.decode()}")
+                            
+                            # Now try launching the server again
+                            logger.info(f"Attempting to launch {server_name} after reinstalling")
+                            
+                            # Create server parameters
+                            params = StdioServerParameters(
+                                command=command,
+                                args=args,
+                                env=env
+                            )
+                            
+                            # Connect to the server
+                            read_stream, write_stream = await self.exit_stack.enter_async_context(
+                                stdio_client(params)
+                            )
+                            
+                            session = await self.exit_stack.enter_async_context(
+                                ClientSession(read_stream, write_stream)
+                            )
+                            
+                            # Initialize the session
+                            await session.initialize()
+                            
+                            # Store the connection
+                            self.connections[server_name] = session
+                            
+                            logger.info(f"Connected to server: {server_name} after reinstalling package")
+                            return session
+                        except Exception as reinstall_error:
+                            logger.error(f"Reinstallation attempt failed: {reinstall_error}")
+                            raise RuntimeError(f"Could not launch server {server_name} using any method: {reinstall_error}")
                 else:
                     # Re-raise the original error if we can't try a fallback
                     raise
@@ -489,21 +540,26 @@ class Connector:
         """
         # Ensure registry is loaded
         if not hasattr(self.registry, 'servers') or not self.registry.servers:
+            logger.info("📋 Loading registry data...")
             await self.registry.update()
         
         # Search for servers with the capability
+        logger.info(f"🔍 Searching for servers with capability: '{capability}'")
         matching_servers = []
-        for server in self.registry.servers:
-            if capability in server.get("capabilities", []):
+        for server_name, server in self.registry.servers.items():
+            capabilities = server.get("capabilities", [])
+            if capability in capabilities:
+                logger.info(f"✓ Found server '{server_name}' with capability '{capability}'")
                 matching_servers.append(server)
         
         if not matching_servers:
-            logger.warning(f"No servers found for capability: {capability}")
+            logger.warning(f"❌ No servers found for capability: '{capability}'")
             return None
             
         # Return the first server (could be enhanced with ranking later)
         server = matching_servers[0]
         server_name = server.get("name")
+        logger.info(f"✓ Selected server '{server_name}' for capability '{capability}'")
         
         # Check if server is installed
         if not self.registry.is_server_installed(server_name):
@@ -513,18 +569,22 @@ class Connector:
                 getattr(self, "auto_install", False)
             )
             
-            logger.debug(f"Auto-install for servers is: {auto_install}")
+            logger.info(f"🔄 Auto-install for servers is: {'Enabled ✅' if auto_install else 'Disabled ❌'}")
             
             if auto_install:
-                logger.info(f"Auto-installing server for capability: {capability}")
+                logger.info(f"🔧 Auto-installing server '{server_name}' for capability: '{capability}'")
                 installed = await self.installer.install_server(server)
                 
                 if not installed:
-                    logger.error(f"Failed to install server for capability: {capability}")
+                    logger.error(f"❌ Failed to install server '{server_name}' for capability: '{capability}'")
                     return None
+                else:
+                    logger.info(f"✅ Successfully installed server '{server_name}' for capability: '{capability}'")
             else:
-                logger.warning(f"Server '{server_name}' is not installed and auto-install is disabled")
+                logger.warning(f"❌ Server '{server_name}' is not installed and auto-install is disabled")
                 return None
+        else:
+            logger.info(f"✅ Server '{server_name}' is already installed")
                 
         return server
         
@@ -660,9 +720,17 @@ class Connector:
             
             # Analyze common error patterns and provide helpful suggestions
             if "API key" in error_message or "Authentication" in error_message or "Unauthorized" in error_message:
-                suggestion = "Check if the required API key is set in the environment variables."
+                # Check for specific API key issues based on the capability
                 if capability == "weather":
-                    suggestion += " For weather capability, set the ACCUWEATHER_API_KEY environment variable."
+                    key_name = "ACCUWEATHER_API_KEY"
+                    if not os.environ.get(key_name):
+                        error_message = f"Missing AccuWeather API key. The {key_name} environment variable is not set."
+                        suggestion = f"Set the {key_name} environment variable with your AccuWeather API key. You can get one at https://developer.accuweather.com/"
+                    else:
+                        suggestion = f"Check if your {key_name} is valid and has not expired. You may need to regenerate it at https://developer.accuweather.com/"
+                else:
+                    # Generic API key error
+                    suggestion = "Check if the required API key is set in the environment variables."
             elif "Connection" in error_message or "Timeout" in error_message:
                 suggestion = "Check your internet connection and try again."
             elif "No such file or directory" in error_message:
@@ -690,79 +758,180 @@ class Connector:
         """
         Execute a tool on a server
         
-        This method handles connecting to the server if needed, executing the tool
-        with the provided parameters, and maintaining the connection for future use.
-        
         Args:
-            server_data: Server information (can be a server name string or server data dictionary)
+            server_data: Either a server name (string) or server data dictionary
             tool_name: Name of the tool to execute
             parameters: Parameters to pass to the tool
             
         Returns:
-            Tool execution result or error information with suggestions
-            
-        Raises:
-            Exception: If tool execution fails
+            Tool execution result
         """
-        # Handle the case where server_data is a string (server name)
-        server_name = None
+        # Get server name
         if isinstance(server_data, str):
             server_name = server_data
-        elif isinstance(server_data, dict):
-            server_name = server_data.get('name')
-            
-        if not server_name:
-            return {
-                "error": "Invalid server data provided",
-                "status": "error",
-                "suggestion": "Check that the server name is correctly specified."
-            }
-            
+            if server_name not in self.registry.servers:
+                logger.error(f"No such server: {server_name}")
+                return {
+                    "error": f"Server {server_name} not found in registry",
+                    "status": "error",
+                    "suggestion": "Check server name or update registry"
+                }
+            server_data = self.registry.servers[server_name]
+        else:
+            server_name = server_data.get("name")
+            if not server_name:
+                logger.error("Server data has no name field")
+                return {
+                    "error": "Server data has no name field",
+                    "status": "error"
+                }
+        
         try:
-            # Connect to the server
-            client = await self.connect_to_server(server_name)
+            # Connect to the server (or get existing connection)
+            try:
+                session = await self.connect_to_server(server_name)
+            except Exception as e:
+                logger.error(f"Failed to connect to server {server_name}: {e}")
+                
+                # Check for specific errors related to missing dependencies
+                error_str = str(e)
+                if "No module named" in error_str or "ModuleNotFoundError" in error_str:
+                    # Extract the missing module name if possible
+                    missing_module = None
+                    if "No module named '" in error_str:
+                        parts = error_str.split("No module named '")
+                        if len(parts) > 1:
+                            missing_module = parts[1].split("'")[0]
+                    
+                    if missing_module:
+                        return {
+                            "error": f"Missing dependency: {missing_module}",
+                            "status": "error",
+                            "suggestion": f"Install the missing dependency with: pip install {missing_module}",
+                            "missing_dependency": missing_module,
+                            "server_name": server_name
+                        }
+                    else:
+                        return {
+                            "error": f"Missing dependency for {server_name}",
+                            "status": "error", 
+                            "suggestion": "The server requires dependencies that are not installed",
+                            "server_name": server_name
+                        }
+                
+                return {
+                    "error": f"Failed to connect to server {server_name}: {e}",
+                    "status": "error",
+                    "suggestion": "Check if the server is installed and running"
+                }
+            
+            # Check if tool is available
+            try:
+                tools = await session.list_tools()
+                tool_names = [tool.get("name") for tool in tools]
+                
+                if tool_name not in tool_names:
+                    logger.warning(f"Tool {tool_name} not found on server {server_name}")
+                    logger.info(f"Available tools: {tool_names}")
+                    
+                    # Look for similar tool names as suggestions
+                    similar_tools = []
+                    for available_tool in tool_names:
+                        if tool_name.lower() in available_tool.lower() or available_tool.lower() in tool_name.lower():
+                            similar_tools.append(available_tool)
+                    
+                    suggestion = f"Tool {tool_name} not found on server {server_name}."
+                    if similar_tools:
+                        suggestion += f" Did you mean one of these: {', '.join(similar_tools)}?"
+                    else:
+                        suggestion += f" Available tools: {', '.join(tool_names)}"
+                    
+                    return {
+                        "error": f"Tool {tool_name} not found on server {server_name}",
+                        "status": "error",
+                        "suggestion": suggestion,
+                        "available_tools": tool_names
+                    }
+            except Exception as e:
+                logger.error(f"Error listing tools on server {server_name}: {e}")
+                return {
+                    "error": f"Error listing tools on server {server_name}: {e}",
+                    "status": "error"
+                }
             
             # Execute the tool
-            logger.debug(f"Executing tool '{tool_name}' with parameters: {parameters}")
-            result = await client.call_tool(tool_name, parameters)
-            
-            # If result is an error, provide additional context
-            if isinstance(result, dict) and result.get("error"):
-                error_message = result.get("error")
-                suggestion = "Unknown error occurred during tool execution."
+            try:
+                logger.info(f"Executing tool {tool_name} on server {server_name} with parameters: {parameters}")
+                result = await session.call_tool(tool_name, parameters)
+                logger.info(f"Tool {tool_name} executed successfully on server {server_name}")
                 
-                # Analyze tool-specific errors
-                if "API key" in str(error_message) or "Authorization" in str(error_message):
-                    suggestion = "The tool requires an API key that may not be set correctly."
-                    if server_name == "mcp_weather":
-                        suggestion += " Set the ACCUWEATHER_API_KEY environment variable."
+                # Check if result contains an error
+                if isinstance(result, dict) and "error" in result:
+                    logger.warning(f"Tool {tool_name} returned an error: {result['error']}")
+                    
+                    # Check for API key errors to provide better guidance
+                    error_message = str(result.get("error", ""))
+                    suggestion = result.get("suggestion", "")
+                    
+                    if ("API key" in error_message or "Authorization" in error_message or 
+                        "Unauthorized" in error_message or "authentication" in error_message.lower()):
+                        
+                        # Check for specific servers to provide targeted suggestions
+                        if server_name == "mcp_weather":
+                            env_var = "ACCUWEATHER_API_KEY"
+                            if not os.environ.get(env_var):
+                                suggestion = f"Set the {env_var} environment variable with your AccuWeather API key. You can get one at https://developer.accuweather.com/"
+                            else:
+                                suggestion = f"Check if your {env_var} is valid and has not expired. You may need to regenerate it at https://developer.accuweather.com/"
+                        elif server_name == "mcp_wolfram_alpha":
+                            env_var = "WOLFRAM_API_KEY"
+                            if not os.environ.get(env_var):
+                                suggestion = f"Set the {env_var} environment variable with your Wolfram Alpha API key. You can get one at https://products.wolframalpha.com/api/"
+                            else:
+                                suggestion = f"Check if your {env_var} is valid and has not expired. You may need to regenerate it at https://products.wolframalpha.com/api/"
+                        else:
+                            # Generic API key suggestion
+                            suggestion = "This tool requires an API key. Check the server documentation for the required environment variables."
+                        
+                        result["status"] = "error"
+                        result["suggestion"] = suggestion
+                        result["server_name"] = server_name
+                        result["tool_name"] = tool_name
+                    
+                return result
+            except Exception as e:
+                logger.error(f"Error executing tool {tool_name} on server {server_name}: {e}")
                 
-                result.update({
+                # Check for dependency errors
+                error_str = str(e)
+                if "No module named" in error_str or "ModuleNotFoundError" in error_str:
+                    # Extract the missing module name if possible
+                    missing_module = None
+                    if "No module named '" in error_str:
+                        parts = error_str.split("No module named '")
+                        if len(parts) > 1:
+                            missing_module = parts[1].split("'")[0]
+                    
+                    if missing_module:
+                        return {
+                            "error": f"Missing dependency: {missing_module}",
+                            "status": "error",
+                            "suggestion": f"Install the missing dependency with: pip install {missing_module}",
+                            "missing_dependency": missing_module,
+                            "server_name": server_name,
+                            "tool_name": tool_name
+                        }
+                
+                return {
+                    "error": f"Error executing tool {tool_name} on server {server_name}: {e}",
                     "status": "error",
-                    "suggestion": suggestion,
-                    "server_name": server_name,
-                    "tool_name": tool_name
-                })
-            
-            return result
+                    "suggestion": "Check tool parameters and server status"
+                }
         except Exception as e:
-            # Provide human-readable error information
-            error_message = str(e)
-            suggestion = "An error occurred when executing the tool."
-            
-            if "not found" in error_message.lower() and tool_name in error_message:
-                suggestion = f"The tool '{tool_name}' does not exist on server '{server_name}'. Check available tools with list_server_tools()."
-            elif "connection" in error_message.lower():
-                suggestion = "Failed to connect to the server. Check that it's running and accessible."
-            elif "timeout" in error_message.lower():
-                suggestion = "The server connection timed out. The operation may have taken too long."
-            
+            logger.error(f"Unexpected error executing tool {tool_name}: {e}")
             return {
-                "error": f"Error executing tool '{tool_name}' on server '{server_name}': {error_message}",
-                "status": "error",
-                "suggestion": suggestion,
-                "server_name": server_name,
-                "tool_name": tool_name
+                "error": f"Unexpected error: {e}",
+                "status": "error"
             }
             
     async def aclose(self) -> None:

@@ -1,31 +1,62 @@
 # State of Mika SDK
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PyPI version](https://badge.fury.io/py/state-of-mika.svg)](https://badge.fury.io/py/state-of-mika)
+
 ## Overview
 
 State of Mika SDK (SoM) is a comprehensive framework that connects large language models (LLMs) with specialized capability servers using the Model Context Protocol (MCP). This integration enables AI systems to access a wide range of tools and services through a standardized interface.
 
 Key benefits include:
 
-- Seamless connection between LLMs and external capabilities
-- Standardized communication through the Model Context Protocol
-- Dynamic discovery and installation of capability servers
-- Intelligent error handling with actionable suggestions
-- Simplified integration of new capabilities into AI workflows
+- **Seamless Connection**: Connect LLMs and external capabilities with minimal code
+- **Standardized Communication**: Leverage the Model Context Protocol for consistent interfaces
+- **Dynamic Discovery**: Automatically find and use appropriate capability servers
+- **Intelligent Error Handling**: Get actionable suggestions when things go wrong
+- **Simple Integration**: Add new capabilities to AI workflows with minimal effort
 
 ## Installation
 
 Install the State of Mika SDK via pip:
 
 ```bash
-pip install state_of_mika
+pip install state-of-mika
 ```
 
 Or from the source code:
 
 ```bash
-git clone https://github.com/yourusername/StateOfMika-SDK.git
-cd StateOfMika-SDK
+git clone https://github.com/state-of-mika/sdk.git
+cd sdk
 pip install -e .
+```
+
+## Quick Start
+
+```python
+import asyncio
+from state_of_mika import SoMAgent
+
+async def main():
+    # Initialize the agent with auto-installation
+    agent = SoMAgent(auto_install=True)
+    await agent.setup()
+    
+    try:
+        # Process a natural language request
+        result = await agent.process_request("What's the weather in Tokyo today?")
+        
+        if result.get("status") == "success":
+            print(f"Result: {result.get('result')}")
+        else:
+            print(f"Error: {result.get('error')}")
+            print(f"Suggestion: {result.get('suggestion')}")
+    finally:
+        # Clean up resources
+        await agent.aclose()
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
 ## Core Features

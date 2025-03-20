@@ -42,33 +42,46 @@ load_dotenv()
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    # Use colorful formatting for better visibility in presentations
+    datefmt='%H:%M:%S'
 )
 logger = logging.getLogger("test_som_agent")
 
+# Add a separator function for better visual separation in logs
+def log_separator(title):
+    """Print a visually distinct separator with a title."""
+    separator = "=" * 60
+    print(f"\n{separator}")
+    print(f"    {title}")
+    print(f"{separator}\n")
+
 async def test_som_agent():
     """Test the SoMAgent with a variety of requests and error scenarios."""
-    print("\n===== Testing State of Mika Agent with Claude =====\n")
+    log_separator("Testing State of Mika Agent with Claude")
+    
+    print("🔧 Initializing SoMAgent with auto-installation enabled...")
     
     # Create the agent with standard setup
     # This will use the MikaAdapter with SSL verification disabled
     agent = SoMAgent(auto_install=True)
+    print("⚙️ Setting up agent and loading registry...")
     await agent.setup()
     
     # Display server configurations for reference
-    print("\n===== Available Servers and Tools =====")
+    log_separator("Available Servers and Tools")
     server_configs = agent.mika_adapter.server_configs
     if server_configs and "servers" in server_configs:
         for server in server_configs["servers"]:
-            print(f"\nServer: {server.get('name')}")
-            print(f"Capabilities: {', '.join(server.get('capabilities', []))}")
-            print("Available tools:")
+            print(f"\n📦 Server: {server.get('name')}")
+            print(f"📋 Capabilities: {', '.join(server.get('capabilities', []))}")
+            print("🔧 Available tools:")
             for tool_name, tool_info in server.get("schema", {}).items():
                 param_info = ', '.join([f"{p}" for p in tool_info.get("parameters", {}).keys()])
-                print(f"  - {tool_name} ({param_info})")
+                print(f"  - 🛠️ {tool_name} ({param_info})")
     else:
-        print("No server configurations available.")
-    print("\n===== End of Server Configurations =====\n")
+        print("❌ No server configurations available.")
+    print("\n")
     
     # Test cases
     test_cases = [
@@ -79,23 +92,31 @@ async def test_som_agent():
             "expected_tool": "get_hourly_weather"  # Updated to match actual tool name
         },
         {
-            "name": "Weather request without API key (error case)",
+            "name": "Weather request with API key error",
             "request": "What's the weather like in London?",
             "expected_capability": "weather",
             "expected_tool": "get_hourly_weather",  # Updated to match actual tool name
-            "unset_keys": ["ACCUWEATHER_API_KEY"]  # Temporarily unset this key
+            "unset_keys": ["ACCUWEATHER_API_KEY"],  # Temporarily unset this key
+            "show_detailed_error": True  # Flag to show detailed error analysis
+        },
+        {
+            "name": "Wolfram Alpha request with missing dependency",
+            "request": "Solve the equation x^2 + 2x - 3 = 0",
+            "expected_capability": "wolfram_alpha",
+            "expected_tool": "query",
+            "show_detailed_error": True
         },
         {
             "name": "Non-existent capability",
-            "request": "Solve this complex math equation: 3x^2 + 2x - 5 = 0",
-            "expected_capability": "math"  # We don't have a math capability
+            "request": "Teleport me to Mars",
+            "expected_capability": "teleportation"  # We don't have this capability
         }
     ]
     
     # Run the tests
     for i, test in enumerate(test_cases, 1):
-        print(f"\n>> Test {i}: {test['name']}")
-        print(f"Request: {test['request']}")
+        log_separator(f"Test {i}: {test['name']}")
+        print(f"🔍 Request: {test['request']}")
         
         # Temporarily unset specified environment variables
         original_values = {}
@@ -103,14 +124,18 @@ async def test_som_agent():
             original_values[key] = os.environ.get(key)
             if key in os.environ:
                 del os.environ[key]
-                print(f"Temporarily unset {key} for testing.")
+                print(f"🔄 Temporarily unset {key} for testing.")
+                print(f"🔍 Testing how system responds when {key} is missing...")
         
         try:
             # Process the request
+            print("\n⚙️ Processing request through Claude and State of Mika...\n")
+            
+            # Normal processing
             result = await agent.process_request(test["request"])
             
             # Print the result
-            print("\nResult:")
+            print("\n📋 Result:")
             print(f"Status: {result.get('status')}")
             
             if result.get("status") == "success":
@@ -130,9 +155,35 @@ async def test_som_agent():
             else:
                 print("❌ Error!")
                 print(f"Error: {result.get('error')}")
-                print(f"Error Type: {result.get('error_type', 'Unknown')}")
-                print(f"Explanation: {result.get('explanation', 'No explanation provided')}")
-                print(f"Suggestion: {result.get('suggestion', 'No suggestion provided')}")
+                
+                # Show detailed error information if available and requested
+                if test.get("show_detailed_error", False):
+                    log_separator("Detailed Error Analysis")
+                    print(f"🔍 Error Type: {result.get('error_type', 'Unknown')}")
+                    print(f"📋 Explanation: {result.get('explanation', 'No explanation provided')}")
+                    print(f"💡 Suggestion: {result.get('suggestion', 'No suggestion provided')}")
+                    print(f"🔧 Requires User Action: {result.get('requires_user_action', True)}")
+                    
+                    # Show missing API key information if available
+                    if result.get("missing_api_key"):
+                        print(f"\n🔑 Missing API Key: {result.get('missing_api_key')}")
+                        print(f"   Environment Variable Needed: export {result.get('missing_api_key')}=your_api_key_here")
+                    
+                    # Show missing dependency information if available
+                    if result.get("missing_dependency"):
+                        print(f"\n📦 Missing Dependency: {result.get('missing_dependency')}")
+                        print(f"   Installation Command: pip install {result.get('missing_dependency')}")
+                    
+                    # Show API key hint
+                    if "api key" in result.get('error', '').lower() or "api key" in result.get('explanation', '').lower():
+                        print("\n🔑 API Key Issue Detected!")
+                        if "ACCUWEATHER_API_KEY" in test.get("unset_keys", []):
+                            print("   This test deliberately removed the ACCUWEATHER_API_KEY to simulate this error.")
+                            print("   To fix in a real scenario: export ACCUWEATHER_API_KEY=your_api_key_here")
+                else:
+                    print(f"Error Type: {result.get('error_type', 'Unknown')}")
+                    print(f"Explanation: {result.get('explanation', 'No explanation provided')}")
+                    print(f"Suggestion: {result.get('suggestion', 'No suggestion provided')}")
                 
             # Check if the capability matched the expected one
             if "capability" in result and test.get("expected_capability"):
@@ -155,11 +206,11 @@ async def test_som_agent():
         for key, value in original_values.items():
             if value is not None:
                 os.environ[key] = value
-                print(f"Restored {key} environment variable.")
+                print(f"🔄 Restored {key} environment variable.")
     
     # Clean up
     await agent.aclose()
-    print("\n===== Testing Completed =====")
+    log_separator("Testing Completed")
 
 if __name__ == "__main__":
     asyncio.run(test_som_agent()) 

@@ -8,7 +8,17 @@ This package provides an AI-powered system for:
 4. Returning structured responses or helpful error suggestions
 """
 
-__version__ = "0.1.4"
+import logging
+import os
+
+# Configure the logger for better visibility in presentations
+logging.basicConfig(
+    level=os.environ.get("SOM_LOG_LEVEL", "INFO"),
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    datefmt='%H:%M:%S'
+)
+
+__version__ = "0.1.5"
 
 # Expose the main classes
 from .connector import Connector

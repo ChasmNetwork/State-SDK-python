@@ -49,42 +49,48 @@ class Installer:
             True if successful, False otherwise
         """
         if not self.registry.servers:
-            logger.error("Registry is empty, cannot install server")
+            logger.error("❌ Registry is empty, cannot install server")
             return False
             
         # If server_data is a string (server name), look it up in the registry
         if isinstance(server_data, str):
             server_name = server_data
+            logger.info(f"🔍 Looking up server '{server_name}' in registry")
             if server_name not in self.registry.servers:
-                logger.error(f"Server {server_name} not found in registry")
+                logger.error(f"❌ Server '{server_name}' not found in registry")
                 return False
             server_data = self.registry.servers[server_name]
         else:
             server_name = server_data.get("name")
             
         if not server_name:
-            logger.error("Server data is missing 'name' field")
+            logger.error("❌ Server data is missing 'name' field")
             return False
+            
+        logger.info(f"⚙️ Starting installation process for '{server_name}'")
             
         # Skip if already installed
         if self.registry.is_server_installed(server_name):
-            logger.info(f"Server {server_name} is already installed")
+            logger.info(f"✅ Server '{server_name}' is already installed")
             return True
             
         # Get installation details - try both "install" and "installation" keys
         install_info = server_data.get("install")
         if not install_info:
             # Try alternate key
+            logger.info(f"🔍 Looking for alternate installation information for '{server_name}'")
             install_info = server_data.get("installation")
             
         if not install_info:
-            logger.error(f"No installation information for server {server_name}")
+            logger.error(f"❌ No installation information for server '{server_name}'")
             return False
             
         install_type = install_info.get("type")
         if not install_type:
-            logger.error(f"No installation type specified for server {server_name}")
+            logger.error(f"❌ No installation type specified for server '{server_name}'")
             return False
+            
+        logger.info(f"🔧 Installing server '{server_name}' using method: {install_type}")
             
         # Install based on type
         if install_type == "pip":
@@ -92,7 +98,7 @@ class Installer:
         elif install_type == "npm":
             return await self._install_npm(server_name, install_info)
         else:
-            logger.error(f"Unsupported installation type: {install_type}")
+            logger.error(f"❌ Unsupported installation type: {install_type}")
             return False
             
     async def _install_pip(self, server_name: str, install_info: Dict[str, Any]) -> bool:
@@ -120,86 +126,71 @@ class Installer:
             package = f"{package}=={version}"
         
         # Try uv first, then fall back to pip if uv is not installed
-        logger.info(f"Installing package with uv: {package}")
+        logger.info(f"📦 Preparing to install package: {package}")
         
-        # For GitHub repositories, install directly from the repo
+        # Check if using repository
         if repository:
-            # Convert GitHub SSH URLs to HTTPS URLs to avoid authentication issues
-            if "github.com" in repository and not repository.startswith("https://"):
-                # Transform SSH URL format to HTTPS format
-                if repository.startswith("git@github.com:"):
-                    repository = repository.replace("git@github.com:", "https://github.com/")
-                elif repository.startswith("ssh://git@github.com/"):
-                    repository = repository.replace("ssh://git@github.com/", "https://github.com/")
-                    
-                logger.info(f"Converted repository URL to HTTPS format: {repository}")
-                
-            # Use the repository URL instead of the package name
-            install_target = repository
-            logger.info(f"Installing from repository: {repository}")
-        else:
-            install_target = package
+            if version:
+                logger.info(f"📦 Installing from repository {repository} with version {version}")
+                # For GitHub repositories, we can use the @ syntax to specify a version or branch
+                package = f"git+{repository}@{version}"
+            else:
+                logger.info(f"📦 Installing from repository {repository}")
+                package = f"git+{repository}"
         
+        # Try uv first if available (faster installs)
         try:
-            # Try with uv first
-            process = await asyncio.create_subprocess_exec(
-                "uv", "pip", "install", install_target,
+            check_process = await asyncio.create_subprocess_exec(
+                "uv", "--version",
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE
             )
+            stdout, stderr = await check_process.communicate()
             
-            stdout, stderr = await process.communicate()
-            
-            if process.returncode == 0:
-                logger.info(f"Successfully installed {install_target} with uv")
-                return True
-            
-            # uv command failed, check if it's not installed or another error
-            error_message = stderr.decode()
-            if "command not found" in error_message or "No such file or directory" in error_message:
-                logger.warning("uv not found, falling back to pip")
-                # Fall back to pip
-                process = await asyncio.create_subprocess_exec(
-                    sys.executable, "-m", "pip", "install", install_target,
+            if check_process.returncode == 0:
+                logger.info(f"🚀 Installing package with uv: {package}")
+                
+                # uv install command
+                install_process = await asyncio.create_subprocess_exec(
+                    "uv", "pip", "install", package,
                     stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE
                 )
+                stdout, stderr = await install_process.communicate()
                 
-                stdout, stderr = await process.communicate()
-                
-                if process.returncode != 0:
-                    logger.error(f"Error installing {install_target} with pip: {stderr.decode()}")
-                    return False
-                    
-                logger.info(f"Successfully installed {install_target} with pip")
+                if install_process.returncode == 0:
+                    logger.info(f"✅ Successfully installed {server_name} with uv")
+                    return True
+                else:
+                    logger.warning(f"⚠️ Failed to install with uv, falling back to pip: {stderr.decode()}")
+            else:
+                logger.info("🔄 uv not found, falling back to pip")
+        except Exception as e:
+            logger.info(f"🔄 Error with uv, falling back to pip: {e}")
+        
+        # Fall back to pip
+        try:
+            logger.info(f"📦 Installing package with pip: {package}")
+            
+            # Use pip install
+            import sys
+            install_process = await asyncio.create_subprocess_exec(
+                sys.executable, "-m", "pip", "install", package,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            stdout, stderr = await install_process.communicate()
+            
+            if install_process.returncode == 0:
+                logger.info(f"✅ Successfully installed {server_name} with pip")
                 return True
             else:
-                logger.error(f"Error installing {install_target} with uv: {error_message}")
+                error_message = stderr.decode()
+                logger.error(f"❌ Failed to install {server_name} with pip: {error_message}")
                 return False
-                
         except Exception as e:
-            logger.error(f"Error during package installation: {e}")
-            
-            # Try falling back to pip
-            try:
-                logger.warning(f"Falling back to pip for installing {install_target}")
-                process = await asyncio.create_subprocess_exec(
-                    sys.executable, "-m", "pip", "install", install_target,
-                    stdout=asyncio.subprocess.PIPE,
-                    stderr=asyncio.subprocess.PIPE
-                )
-                
-                stdout, stderr = await process.communicate()
-                
-                if process.returncode != 0:
-                    logger.error(f"Error installing {install_target} with pip: {stderr.decode()}")
-                    return False
-                    
-                logger.info(f"Successfully installed {install_target} with pip")
-                return True
-            except Exception as e2:
-                logger.error(f"Error during fallback to pip: {e2}")
-                return False
+            logger.error(f"❌ Error installing {server_name}: {e}")
+            return False
             
     async def _install_npm(self, server_name: str, install_info: Dict[str, Any]) -> bool:
         """
@@ -653,7 +644,8 @@ class Installer:
         """
         server_data = self.registry.get_server_by_name(server_name)
         if not server_data:
-            raise ValueError(f"Server not found in registry: {server_name}")
+            logger.warning(f"No installation information for server: {server_name}")
+            return False
             
         installation_info = server_data.get("installation")
         if not installation_info:

@@ -73,15 +73,16 @@ class SoMAgent:
         Returns:
             Dictionary with the result or error information
         """
-        logger.info(f"Processing user request: {user_request}")
+        logger.info(f"🔍 Processing user request: '{user_request}'")
         
         try:
             # Step 1: Analyze the request with Mika
+            logger.info("🧠 Analyzing request...")
             analysis = await self.mika_adapter.analyze_request(user_request)
             
             # Check for errors in the analysis
             if "error" in analysis:
-                logger.error(f"Error analyzing request: {analysis['error']}")
+                logger.error(f"❌ Error analyzing request: {analysis['error']}")
                 return {
                     "status": "error",
                     "error": analysis["error"],
@@ -94,9 +95,10 @@ class SoMAgent:
             tool_name = analysis["tool_name"]
             parameters = analysis["parameters"]
             
-            logger.info(f"Determined capability: {capability}, tool: {tool_name}")
+            logger.info(f"✅ SoM determined: capability='{capability}', tool='{tool_name}', parameters={parameters}")
             
             # Step 2: Execute the capability
+            logger.info(f"⚙️ Executing capability '{capability}' with tool '{tool_name}'...")
             result = await self.connector.execute_capability(
                 capability=capability,
                 tool_name=tool_name,
@@ -105,9 +107,10 @@ class SoMAgent:
             
             # Step 3: Check if the result is an error
             if isinstance(result, dict) and result.get("status") == "error":
-                logger.warning(f"Error executing capability: {result.get('error')}")
+                logger.warning(f"⚠️ Error executing capability: {result.get('error')}")
                 
                 # Step 4: Analyze the error with Mika
+                logger.info("🧠 Analyzing error...")
                 error_analysis = await self.mika_adapter.analyze_error(
                     error=result,
                     original_request=user_request,
@@ -131,9 +134,16 @@ class SoMAgent:
                     "tool_name": tool_name
                 }
                 
+                # Add the missing_api_key field if present
+                if error_analysis.get("missing_api_key"):
+                    enhanced_error["missing_api_key"] = error_analysis.get("missing_api_key")
+                    logger.warning(f"🔑 Missing API key detected: {error_analysis.get('missing_api_key')}")
+                
+                logger.info(f"🧩 Enhanced error with explanation: {enhanced_error.get('explanation')}")
                 return enhanced_error
             
             # Success case - return the result
+            logger.info(f"✅ Successfully executed capability '{capability}'")
             return {
                 "status": "success",
                 "result": result,
@@ -142,15 +152,17 @@ class SoMAgent:
             }
             
         except Exception as e:
-            logger.error(f"Unexpected error: {str(e)}", exc_info=True)
+            logger.error(f"❌ Unexpected error: {str(e)}", exc_info=True)
             
             # Try to analyze the error with Mika
             try:
+                logger.info("🧠 Attempting to analyze unexpected error...")
                 error_analysis = await self.mika_adapter.analyze_error(
                     error=str(e),
                     original_request=user_request
                 )
                 
+                logger.info(f"✅ SoM provided error analysis: {error_analysis.get('error_type', 'Unknown')}")
                 return {
                     "status": "error",
                     "error": str(e),

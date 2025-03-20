@@ -273,12 +273,23 @@ class MikaAdapter:
         3. Provide a clear explanation
         4. Suggest concrete steps to fix the issue
         
+        Pay special attention to API key errors, which are common issues:
+        - If you detect an API key issue, specify which API is involved (e.g., "AccuWeather API", "OpenAI API")
+        - Provide the exact environment variable that needs to be set (e.g., "ACCUWEATHER_API_KEY", "OPENAI_API_KEY")
+        - Include information on how to obtain an API key if possible
+        
+        For capability-specific errors:
+        - Weather capability typically requires ACCUWEATHER_API_KEY
+        - Search capability may require various search engine API keys
+        - Wolfram Alpha capability requires WOLFRAM_API_KEY
+        
         Respond in JSON format only with these fields:
         {
             "error_type": "string",         // Category of error (e.g., "API Key Missing", "Network Error")
             "explanation": "string",        // Clear explanation of what went wrong
             "suggestion": "string",         // Concrete steps to fix the issue
-            "requires_user_action": boolean // Whether user needs to take action to fix it
+            "requires_user_action": boolean, // Whether user needs to take action to fix it
+            "missing_api_key": "string"     // If applicable, name of the missing API key (e.g., "ACCUWEATHER_API_KEY")
         }
         """
         

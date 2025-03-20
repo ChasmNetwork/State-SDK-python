@@ -308,8 +308,10 @@ class Registry:
         Returns:
             True if the server is installed, False otherwise
         """
+        logger.info(f"✓ Checking if server '{server_name}' is installed...")
+        
         if server_name not in self.servers:
-            logger.warning(f"Server {server_name} not found in registry")
+            logger.warning(f"✗ Server '{server_name}' not found in registry")
             return False
             
         server = self.servers[server_name]
@@ -317,10 +319,11 @@ class Registry:
         # Check if the server has installation information
         install_info = server.get("install") or server.get("installation", {})
         if not install_info:
-            logger.warning(f"No installation information for server {server_name}")
+            logger.warning(f"✗ No installation information for server '{server_name}'")
             return False
             
         install_type = install_info.get("type")
+        logger.info(f"✓ Server '{server_name}' has installation type: {install_type}")
         
         # For pip packages, check if the package is installed using pip list
         if install_type == "pip":
@@ -333,9 +336,9 @@ class Registry:
                     repo_parts = package_name.split("/")
                     # Extract just the repository name without .git extension
                     pip_package_name = repo_parts[-1].replace(".git", "")
-                    logger.debug(f"Extracted pip package name from GitHub URL: {pip_package_name}")
+                    logger.info(f"✓ Extracted pip package name from GitHub URL: {pip_package_name}")
                 except Exception as e:
-                    logger.error(f"Error extracting package name: {e}")
+                    logger.error(f"✗ Error extracting package name: {e}")
                     pip_package_name = package_name
             else:
                 pip_package_name = package_name
@@ -345,12 +348,12 @@ class Registry:
                 pip_package_name = "mcp-weather"
                 
             if not pip_package_name:
-                logger.warning(f"Empty package name for server {server_name}")
+                logger.warning(f"✗ Empty package name for server '{server_name}'")
                 return False
             
             # Check if the package is in pip list
             try:
-                logger.debug(f"Checking if {pip_package_name} is installed using pip list")
+                logger.info(f"✓ Checking if '{pip_package_name}' is installed using pip list...")
                 import subprocess
                 import sys
                 result = subprocess.run(
@@ -359,26 +362,26 @@ class Registry:
                     text=True
                 )
                 if result.returncode != 0:
-                    logger.error(f"Error running pip list: {result.stderr}")
+                    logger.error(f"✗ Error running pip list: {result.stderr}")
                     return False
                     
                 # Check if the package name is in the output
                 package_found = False
                 for line in result.stdout.splitlines():
                     if pip_package_name.lower() in line.lower():
-                        logger.debug(f"Package found in pip list: {line}")
+                        logger.info(f"✓ Package found in pip list: {line}")
                         package_found = True
                         break
                         
                 if package_found:
-                    logger.debug(f"Package {pip_package_name} is installed (pip list)")
+                    logger.info(f"✓ Package '{pip_package_name}' is installed ✅")
                     return True
                 else:
-                    logger.debug(f"Package {pip_package_name} is not installed (pip list)")
+                    logger.info(f"✗ Package '{pip_package_name}' is NOT installed ❌")
                     return False
                     
             except Exception as e:
-                logger.error(f"Error checking package installation with pip: {e}")
+                logger.error(f"✗ Error checking package installation with pip: {e}")
                 
             # Fallback to the old import check method
             try:
@@ -386,16 +389,16 @@ class Registry:
                 import_name = pip_package_name.replace("-", "_")
                 importlib = __import__("importlib")
                 importlib.util.find_spec(import_name)
-                logger.debug(f"Package {import_name} is installed (fallback to find_spec)")
+                logger.info(f"✓ Package '{import_name}' is installed (fallback to find_spec)")
                 return True
             except (ImportError, ModuleNotFoundError, AttributeError):
                 # Try to import directly
                 try:
                     __import__(import_name)
-                    logger.debug(f"Package {import_name} is installed (fallback to direct import)")
+                    logger.info(f"✓ Package '{import_name}' is installed (fallback to direct import)")
                     return True
                 except:
-                    logger.debug(f"Package {import_name} is not installed")
+                    logger.info(f"✗ Package '{import_name}' is NOT installed ❌")
                     return False
                 
         # For npm packages, check if the package is installed with npm list
