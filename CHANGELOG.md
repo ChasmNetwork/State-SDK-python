@@ -7,10 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2024-03-20
+
 ### Added
 - Automatic dependency detection and installation for MCP servers
 - Improvements to error handling for API key-related issues
 - Created comprehensive examples for manual MCP server usage
+
+### Changed
+- Improved end-to-end tests for better coverage
+- Enhanced MCP integration documentation
 
 ### Fixed
 - Issue with missing dependencies for Wolfram Alpha MCP server

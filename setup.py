@@ -78,7 +78,6 @@ setup(
     install_requires=requirements,
     extras_require={
         "dev": dev_requirements,
-        "claude": ["anthropic>=0.5.0"],
     },
     dependency_links=dependency_links,
     entry_points={
